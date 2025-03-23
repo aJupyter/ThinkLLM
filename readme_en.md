@@ -1,11 +1,13 @@
 # ThinkLLM: Large Language Model Algorithms and Component Implementations
 
 ## Project Overview
+
 ThinkLLM is an open-source project focused on implementing core algorithms for large language models. This repository contains Python implementations of key algorithms and components for LLM, MLLM, RAG, Agent, LRM, RL, and MoE, helping developers and researchers understand the underlying mechanisms of large models through concrete code. Each algorithm implementation is kept concise and clear for learning and further development.
 
 ## Project Structure
 
 ### 1. Transformer Core Algorithms
+
 - **Attention Mechanism Algorithms**
   - Classic Self-Attention implementation
   - Multi-Head Attention (MHA) forward and backward propagation algorithms
@@ -31,6 +33,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - MoE-FFN (Mixture of Experts Feed-Forward Network) conditional computation
 
 ### 2. Model Training and Optimization Algorithms
+
 - **Pretraining Algorithms**
   - Causal Language Model (CLM) pretraining objective implementation
   - Masked Language Model (MLM) training algorithm
@@ -50,6 +53,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - Mixed Precision Training (AMP) algorithm
 
 ### 3. Efficient Inference and Deployment Algorithms
+
 - **Inference Optimization Algorithms**
   - KV cache implementation and management strategies
   - Continuous Batching algorithm
@@ -64,6 +68,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - QLoRA quantized fine-tuning algorithm
 
 ### 4. Long Sequence Processing Algorithms
+
 - **Long Context Techniques**
   - Position Interpolation algorithm
   - Sliding Window Attention implementation
@@ -77,6 +82,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - StreamingLLM infinite context algorithm
 
 ### 5. Multimodal Algorithms
+
 - **Visual Encoding Algorithms**
   - ViT (Vision Transformer) basic algorithm implementation
   - CLIP vision encoder forward propagation algorithm
@@ -89,6 +95,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - Vision-language representation alignment method
 
 ### 6. Retrieval-Augmented Generation (RAG) Algorithms
+
 - **Vector Retrieval Algorithms**
   - Cosine similarity and dot product similarity computation
   - Approximate Nearest Neighbor (ANN) fast retrieval algorithm
@@ -101,6 +108,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - Retrieval result reranking and scoring mechanism
 
 ### 7. Agent and Planning Algorithms
+
 - **Reasoning and Planning Algorithms**
   - ReAct framework core algorithm implementation
   - Chain-of-Thought prompting algorithm
@@ -113,6 +121,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - Cyclic tool calling and termination conditions
 
 ### 8. Reinforcement Learning (RL) and Human Feedback
+
 - **Policy Optimization Based Algorithms**
   - PPO (Proximal Policy Optimization) implementation in LLMs
   - Reward model training algorithm
@@ -125,6 +134,7 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - Alignment Tax measurement and optimization
 
 ### 9. Mixture of Experts (MoE) Algorithms
+
 - **Routing Algorithms**
   - Top-K gating mechanism implementation
   - Hash-based expert assignment algorithm
@@ -137,20 +147,24 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   - Expert parameter sharing and update strategy
 
 ## Usage Guide
+
 - Environment setup and dependency installation
 - Independent testing method for each algorithm
 - Performance evaluation and comparison plans
 - Custom extension guide
 
 ## Contribution Guidelines
+
 - Algorithm contribution process
 - Code standards and testing requirements
 - Documentation and comment standards
 
 ## Reference Resources
+
 - Algorithm-related research papers
 - Excellent implementation references
 - Recommended learning paths
 
 ## License
+
 Open source license information for this project
