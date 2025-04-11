@@ -1280,5 +1280,5 @@ def optimized_rag_pipeline():
 
 # 替换主函数
 if __name__ == "__main__":
-    optimized_rag_pipeline()
-    # main() 
+    optimized_rag_pipeline()     # 新版测试，更适合串联测试，每个函数算法串联起来，更符合RAG流程
+    # main() ## 老版测试，更适合单独的测试每个函数算法，串联度不高
