@@ -1,3 +1,24 @@
+"""
+检索结果重排序算法模块
+
+本模块实现了多种检索结果重排序算法，用于提高检索质量。
+通过对初步检索结果进行再次排序，可以显著提升最终检索结果的相关性和多样性。
+
+主要功能:
+1. 倒数排名融合(RRF) - 合并多种检索方法的结果
+2. BM25重排序 - 基于经典BM25算法的词法匹配重排序
+3. 上下文相关重排序 - 考虑对话历史/会话上下文的重排序
+4. 多样性重排序 - 使用最大边际相关性(MMR)算法平衡相关性与多样性
+
+应用场景:
+- RAG系统：提升检索组件的质量，为生成模型提供更相关的上下文
+- 搜索引擎：改善搜索结果的相关性和多样性
+- 对话系统：利用上下文历史提高结果的连贯性
+
+支持中英文双语处理，集成了多种评分因素如词汇匹配、语义匹配、
+上下文相关性、文档长度和结果多样性等。
+"""
+
 import numpy as np
 import time
 from collections import defaultdict
@@ -8,7 +29,27 @@ import jieba  # 添加jieba中文分词
 class RetrievalReranker:
     """
     检索结果重排序器
-    用于实现各种重排序技术，提高检索质量
+    
+    用于实现各种重排序技术，对初步检索的结果进行再次排序，
+    综合考虑多种因素提高检索质量。
+    
+    原理:
+        重排序是信息检索系统的关键组件，通常在初步检索后应用。
+        初始检索阶段通常优先考虑效率，获取候选文档集合；
+        重排序阶段则更注重精度，使用更复杂的模型和特征进行精细排序。
+        
+    支持的重排序方法:
+        1. 倒数排名融合(RRF)：合并多个排序列表的结果
+        2. 交叉编码器重排序：模拟Cross-Encoder对query-doc对进行直接打分
+        3. BM25重排序：使用经典的BM25算法进行词法匹配重排序
+        4. 上下文重排序：考虑对话历史/会话上下文进行重排序
+        5. 多样性重排序：平衡相关性和结果多样性
+        
+    特点:
+        - 支持中英文双语处理
+        - 提供详细的评分解释
+        - 可配置多种重排序参数
+        - 支持与嵌入模型集成进行语义排序
     """
     
     def __init__(self, embedder=None):
@@ -28,15 +69,28 @@ class RetrievalReranker:
         
     def reciprocal_rank_fusion(self, rank_lists, k=60):
         """
-        倒数排名融合(RRF)算法
-        将多个排名列表合并为单一排名
+        倒数排名融合(RRF)算法，将多个排名列表合并为单一排名
+        
+        原理:
+            RRF是一种简单而强大的排名融合算法，通过对每个排名列表中文档的排名取倒数，
+            然后求和得到最终排名。参数k是一个平滑因子，防止极端排名（如第1位）对结果影响过大。
+            
+        公式:
+            RRF(d) = ∑ 1/(k + r(d))
+            其中r(d)是文档d在各排名列表中的排名位置，k是平滑常数。
+            
+        优点:
+            - 实现简单，计算高效
+            - 不需要训练，无需调整大量参数
+            - 对不同类型和尺度的排名结果具有鲁棒性
+            - 能有效融合不同检索方法的优点
         
         参数:
-            rank_lists: 多个排名列表，每个为[(doc_id, score)]格式
-            k: RRF常数，防止单一排名极值影响过大
+            rank_lists (List[List[Tuple]]): 多个排名列表，每个为[(doc_id, score)]格式
+            k (int): RRF常数，用于平滑排名的影响，默认60
             
         返回:
-            融合后的排名列表 [(doc_id, score)]，按分数降序排序
+            List[Tuple[any, float]]: 融合后的排名列表 [(doc_id, score)]，按分数降序排序
         """
         # 初始化RRF分数字典
         rrf_scores = defaultdict(float)
@@ -55,17 +109,28 @@ class RetrievalReranker:
         
     def cross_encoder_rerank(self, query, documents, doc_ids, top_k=None):
         """
-        使用Cross-Encoder模型进行重排序
-        Cross-Encoder直接对<query, document>对进行打分
+        使用Cross-Encoder模型思想进行重排序
+        
+        原理:
+            Cross-Encoder模型直接对查询-文档对(query-document pair)进行打分，
+            通常比Bi-Encoder(如向量检索)更精确但速度更慢。
+            这里提供一个简化实现，综合考虑词汇重叠度和语义相似度(如果提供嵌入器)。
+            
+        不同于Bi-Encoder的方式:
+            - Bi-Encoder: 查询和文档分别编码为向量，然后计算相似度
+            - Cross-Encoder: 将查询和文档作为一个整体输入到模型中直接得到分数
+            
+        在实际应用中，应使用预训练的Cross-Encoder模型如BERT等进行精确打分。
+        本实现为简化版，模拟Cross-Encoder的基本思想。
         
         参数:
-            query: 查询文本
-            documents: 文档文本列表
-            doc_ids: 文档ID列表
-            top_k: 返回的最大文档数
+            query (str): 查询文本
+            documents (List[str]): 文档文本列表
+            doc_ids (List): 文档ID列表
+            top_k (int, optional): 返回的最大文档数，默认为None(返回所有)
             
         返回:
-            重排序的文档ID和分数 [(doc_id, score)]
+            List[Tuple[any, float]]: 重排序的文档ID和分数列表 [(doc_id, score)]，按分数降序排序
         """
         # 注意：这是简化版本，真实应用中应使用预训练模型
         scores = []
@@ -109,11 +174,17 @@ class RetrievalReranker:
         """
         使用jieba提取文本中的关键词
         
+        功能:
+            根据文本语言类型选择适当的分词方法，提取文本中的有意义关键词。
+            - 中文文本：使用jieba分词
+            - 英文文本：使用空格分词
+            过滤掉停用词和单字词(对中文)，保留更有信息量的词语。
+        
         参数:
-            text: 输入文本
+            text (str): 输入文本
             
         返回:
-            关键词列表
+            List[str]: 提取出的关键词列表
         """
         # 检测是否含有中文字符
         has_chinese = any('\u4e00' <= char <= '\u9fff' for char in text)
@@ -136,16 +207,38 @@ class RetrievalReranker:
         """
         使用BM25算法重排序文档
         
+        原理:
+            BM25是经典的信息检索排序算法，是对TF-IDF的改进版本。
+            主要考虑三个因素:
+            1. 词频(TF)：词在文档中出现的频率，但有饱和控制
+            2. 逆文档频率(IDF)：衡量词的稀有度
+            3. 文档长度归一化：偏好与平均长度相近的文档
+            
+        公式:
+            score(q,d) = ∑(IDF(qi) * ((tf(qi,d) * (k1+1)) / (tf(qi,d) + k1 * (1-b+b*|d|/avgdl))))
+            
+        增强功能:
+            1. 对查询词赋予不同权重：
+               - 位置权重：前面出现的词更重要
+               - 长度权重：长词可能更具鉴别性
+            2. 匹配比例奖励：匹配查询词比例越高分数越高
+            3. 文档长度因子：适度奖励更长的文档
+            4. 位置惩罚：确保排序稳定性
+            
+        支持中英文双语处理：
+            - 使用jieba对中文进行分词
+            - 使用关键词提取而非简单分词，提高相关性
+        
         参数:
-            query: 查询文本
-            documents: 文档文本列表
-            doc_ids: 文档ID列表
-            top_k: 返回的最大文档数
-            k1: BM25参数，控制词频缩放
-            b: BM25参数，控制文档长度归一化
+            query (str): 查询文本
+            documents (List[str]): 文档文本列表
+            doc_ids (List): 文档ID列表
+            top_k (int, optional): 返回的最大文档数
+            k1 (float): BM25参数，控制词频缩放，默认1.5
+            b (float): BM25参数，控制文档长度归一化，默认0.75
             
         返回:
-            重排序的文档ID和分数 [(doc_id, score)]
+            List[Tuple[any, float]]: 重排序的文档ID和分数列表 [(doc_id, score)]，按分数降序排序
         """
         print("\nBM25重排序调试信息:")
         print(f"查询: '{query}'")
@@ -261,7 +354,7 @@ class RetrievalReranker:
                 print(f"  位置惩罚: {position_penalty:.4f}")
                 print(f"  最终分数: {final_score:.4f}")
                 print(f"  文档内容: {doc[:100]}...")
-            
+        
         # 按分数降序排序
         scores.sort(key=lambda x: x[1], reverse=True)
         
@@ -275,15 +368,35 @@ class RetrievalReranker:
         """
         考虑上下文的重排序，基于当前对话/会话历史
         
+        原理:
+            在对话系统和交互式搜索中，当前查询往往不是独立的，而是与之前的会话历史相关。
+            上下文重排序考虑当前查询和历史上下文，使结果更加连贯和相关。
+            
+        核心思想:
+            1. 从当前查询提取关键词
+            2. 从会话历史(上下文)提取关键词，并赋予权重(越近的上下文权重越高)
+            3. 计算文档与查询和上下文的匹配程度
+            4. 组合多种因素进行综合评分:
+               - 查询匹配得分(更高权重)
+               - 上下文匹配得分
+               - 文档长度奖励
+               - 关键词覆盖率奖励
+               - 位置稳定性因子
+               
+        应用场景:
+            - 多轮对话系统
+            - 交互式信息检索
+            - 连续查询的搜索会话
+        
         参数:
-            query: 当前查询文本
-            documents: 文档文本列表
-            doc_ids: 文档ID列表
-            context: 对话上下文/历史查询列表
-            top_k: 返回的最大文档数
+            query (str): 当前查询文本
+            documents (List[str]): 文档文本列表
+            doc_ids (List): 文档ID列表
+            context (List[str], optional): 对话上下文/历史查询列表
+            top_k (int, optional): 返回的最大文档数
             
         返回:
-            重排序的文档ID和分数 [(doc_id, score)]
+            List[Tuple[any, float]]: 重排序的文档ID和分数列表 [(doc_id, score)]，按分数降序排序
         """
         print("\n上下文重排序调试信息:")
         
@@ -384,17 +497,38 @@ class RetrievalReranker:
     def diversity_rerank(self, query, documents, doc_ids, top_k=None, lambda_param=0.5):
         """
         多样性重排序，同时考虑相关性和结果多样性
-        使用最大边际相关性(MMR)算法
+        
+        原理:
+            使用最大边际相关性(Maximum Marginal Relevance, MMR)算法平衡相关性与多样性。
+            MMR算法在选择文档时，不仅考虑与查询的相关性，还考虑与已选择文档的差异性，
+            避免返回过于相似的结果集。
+            
+        MMR算法:
+            迭代选择文档，每次选择能够最大化以下公式的文档:
+            MMR = λ * sim(q,d) - (1-λ) * max(sim(d,d_j))
+            其中:
+            - sim(q,d): 文档d与查询q的相似度
+            - max(sim(d,d_j)): 文档d与已选择文档集合中任一文档d_j的最大相似度
+            - λ: 权衡相关性与多样性的参数，λ越大越注重相关性，λ越小越注重多样性
+            
+        应用场景:
+            - 搜索结果去冗余
+            - 推荐系统提供多样化选择
+            - 文档摘要生成
         
         参数:
-            query: 查询文本
-            documents: 文档文本列表
-            doc_ids: 文档ID列表
-            top_k: 返回的最大文档数
-            lambda_param: 多样性权重参数(0-1之间)，越大则越注重相关性
+            query (str): 查询文本
+            documents (List[str]): 文档文本列表
+            doc_ids (List): 文档ID列表
+            top_k (int, optional): 返回的最大文档数
+            lambda_param (float): 多样性权重参数(0-1之间)，默认0.5
+                                  越大则越注重相关性，越小则越注重多样性
             
         返回:
-            重排序的文档ID和分数 [(doc_id, score)]
+            List[Tuple[any, float]]: 重排序的文档ID和分数列表 [(doc_id, score)]，按分数降序排序
+            
+        说明:
+            该方法需要embedder进行向量嵌入，如果未提供embedder将抛出异常。
         """
         if not self.embedder:
             raise ValueError("多样性重排序需要提供embedder")
@@ -461,13 +595,18 @@ class RetrievalReranker:
     
     def _tokenize(self, text):
         """
-        简单分词
+        简单分词，将文本拆分为标记列表
+        
+        处理流程:
+            1. 将文本转为小写
+            2. 移除标点符号
+            3. 按空格拆分为标记列表
         
         参数:
-            text: 输入文本
+            text (str): 输入文本
             
         返回:
-            标记列表
+            List[str]: 分词后的标记列表
         """
         # 转为小写并移除标点
         text = text.lower()
@@ -479,13 +618,47 @@ class RetrievalReranker:
 class Counter(dict):
     """
     简单的计数器实现，用于计算词频
+    
+    继承自字典类型，对不存在的键返回0而不是抛出异常，
+    便于直接进行词频统计。
     """
     def __missing__(self, key):
+        """
+        处理访问不存在的键时的行为，返回0而不是抛出异常
+        
+        参数:
+            key: 字典键
+            
+        返回:
+            int: 对于不存在的键返回0
+        """
         return 0
 
 def test_retrieval_reranking():
     """
     测试检索结果重排序和打分机制
+    
+    本测试函数全面评估重排序算法在不同场景下的性能:
+    
+    1. 倒数排名融合(RRF)测试：
+       - 模拟向量检索、BM25和混合检索的结果
+       - 使用RRF算法融合多个结果列表
+       
+    2. BM25重排序测试：
+       - 英文查询测试："how to reduce hallucination in large language models"
+       - 中文查询测试："如何减少大型语言模型的幻觉问题"
+       - 特定内容查询测试："大语言模型的局限性"
+       
+    3. 上下文重排序测试：
+       - 相关上下文测试：提供与当前查询相关的历史查询
+       - 不相关上下文测试：提供与当前查询无关的历史查询
+       
+    4. 效果评估：
+       - 对比不同方法的TOP-1结果
+       - 关键词匹配评估：检查包含特定关键词的文档是否被正确排在前面
+       
+    测试数据集包含多个中英文文档，涵盖RAG、语言模型和向量检索等主题，
+    用于模拟真实应用场景。
     """
     print("测试开始: 检索结果重排序与打分机制")
     

@@ -1,3 +1,22 @@
+"""
+查询重写与扩展算法模块
+
+本模块实现了查询重写与扩展技术，用于改善检索效果。通过对原始查询进行修改和扩展，
+可以提高检索系统的召回率和精确度，解决用户查询与文档表达之间的词汇鸿沟问题。
+
+主要功能:
+1. 查询重写 - 修正拼写错误、标准化格式、同义词替换等
+2. 查询扩展 - 添加同义词和相关术语，增加查询覆盖面
+3. 多语言支持 - 同时支持中英文查询处理
+
+应用场景:
+- 搜索引擎优化：解决用户查询不精确、表达不规范的问题
+- 信息检索系统：弥合查询与文档表达之间的词汇差异
+- RAG系统：提高检索组件的召回率，为生成提供更全面的上下文
+
+实现方法采用了基于规则和统计的方法，支持同义词替换、相关术语扩展和拼写纠正等功能。
+"""
+
 import numpy as np
 import re
 from collections import Counter, defaultdict
@@ -12,9 +31,27 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 class QueryRewriter:
     """
     查询重写与扩展器，用于改善检索效果
+    
+    原理:
+        查询重写和扩展技术通过修改原始查询来弥合用户表达与文档内容之间的词汇鸿沟：
+        1. 查询重写：修正语法错误、拼写错误，规范化表达，替换同义词等
+        2. 查询扩展：添加语义相关的词语，扩大查询的覆盖范围
+        
+    优点:
+        - 提高检索系统的召回率，尤其是对含义相同但表达不同的情况
+        - 增强检索的容错能力，对拼写错误和非标准表达更鲁棒
+        - 可以引入领域知识，提高特定场景下的检索效果
+        
+    局限性:
+        - 过度扩展可能引入噪声，导致精确度下降
+        - 词典维护成本高，需要针对不同领域构建专用词典
+        - 需要平衡召回率和精确度的权衡
     """
     
     def __init__(self):
+        """
+        初始化查询重写器，创建同义词、停用词和关联词的数据结构
+        """
         # 同义词词典
         self.synonyms = {}
         # 停用词列表
@@ -27,7 +64,7 @@ class QueryRewriter:
         加载同义词词典
         
         参数:
-            synonym_dict: 同义词词典 {词: [同义词列表]}
+            synonym_dict (dict): 同义词词典，格式为 {词: [同义词列表]}
         """
         self.synonyms = synonym_dict
         
@@ -36,7 +73,7 @@ class QueryRewriter:
         加载停用词列表
         
         参数:
-            stopwords_list: 停用词列表
+            stopwords_list (list): 停用词列表，包含应被过滤的常见词
         """
         self.stopwords = set(stopwords_list)
         
@@ -45,19 +82,25 @@ class QueryRewriter:
         加载关联词词典
         
         参数:
-            related_terms_dict: 关联词词典 {词: [关联词列表]}
+            related_terms_dict (dict): 关联词词典，格式为 {词: [关联词列表]}
         """
         self.related_terms = related_terms_dict
         
     def _tokenize(self, text):
         """
-        简单分词, 支持中英文
+        简单分词，支持中英文
+        
+        处理流程:
+            1. 将文本转为小写
+            2. 对中文文本，识别常见词组并按词切分
+            3. 对英文文本，去除标点符号并按空格切分
+            4. 过滤停用词
         
         参数:
-            text: 输入文本
+            text (str): 输入文本
             
         返回:
-            词条列表
+            list: 分词后的词条列表
         """
         # 简单分词，实际应用中应使用更复杂的分词器
         text = text.lower()
@@ -95,16 +138,26 @@ class QueryRewriter:
         
     def query_expansion(self, query, method='all', max_terms=3, weights=None):
         """
-        查询扩展
+        查询扩展：通过添加同义词和相关词丰富原始查询
+        
+        扩展策略:
+            1. 同义词扩展：查找原始查询中每个词的同义词
+            2. 关联词扩展：查找原始查询中每个词的相关词
+            3. 混合扩展：同时使用上述两种扩展方式
+            
+        权重机制:
+            - 原始词条权重最高
+            - 同义词次之
+            - 关联词权重最低
         
         参数:
-            query: 原始查询
-            method: 扩展方法 ('synonym', 'related', 'all')
-            max_terms: 每个原始词最多扩展的词数
-            weights: 不同扩展方法的权重 {方法: 权重}
+            query (str): 原始查询
+            method (str): 扩展方法，可选值为 'synonym'(同义词扩展), 'related'(关联词扩展), 'all'(所有方法)
+            max_terms (int): 每个原始词最多扩展的词数，默认3
+            weights (dict): 不同扩展方法的权重，如 {'original': 1.0, 'synonym': 0.8, 'related': 0.5}
             
         返回:
-            扩展后的查询，格式为 [(词, 权重)]
+            list: 扩展后的查询词条及其权重列表，格式为 [(词, 权重)]
         """
         if weights is None:
             weights = {
@@ -145,13 +198,19 @@ class QueryRewriter:
     
     def query_rewrite(self, query):
         """
-        查询重写，包括拼写纠正、标准化、同义词替换等
+        查询重写：包括拼写纠正、标准化、同义词替换等
+        
+        重写步骤:
+            1. 将查询转为小写
+            2. 去除多余空格，标准化格式
+            3. 进行拼写纠正（使用预定义的常见错误映射）
+            4. 概率性同义词替换（增加多样性）
         
         参数:
-            query: 原始查询
+            query (str): 原始查询
             
         返回:
-            重写后的查询
+            str: 重写后的查询
         """
         print(f"DEBUG: 原始查询: '{query}'")  # 调试信息
         
@@ -194,13 +253,17 @@ class QueryRewriter:
         
     def full_rewrite_and_expand(self, query):
         """
-        完整的查询重写和扩展过程
+        执行完整的查询重写和扩展流程
+        
+        处理流程:
+            1. 首先进行查询重写（拼写纠正、标准化等）
+            2. 然后对重写后的查询进行扩展（添加同义词、相关词）
         
         参数:
-            query: 原始查询
+            query (str): 原始查询
             
         返回:
-            重写和扩展后的查询 [(词, 权重)]
+            tuple: (重写后的查询字符串, 扩展后的查询词条与权重列表)
         """
         # 首先进行查询重写
         rewritten_query = self.query_rewrite(query)
@@ -212,7 +275,17 @@ class QueryRewriter:
 
 def test_query_rewrite_expansion():
     """
-    测试查询重写和扩展算法
+    测试查询重写和扩展算法，展示在不同查询上的效果
+    
+    测试内容:
+        1. 中英文查询的处理
+        2. 拼写错误纠正
+        3. 同义词替换和扩展
+        4. 相关词扩展
+        
+    测试数据包括:
+        - 英文查询：包含拼写错误、专业术语等
+        - 中文查询：包含领域术语、复合词等
     """
     # 初始化查询重写器
     rewriter = QueryRewriter()

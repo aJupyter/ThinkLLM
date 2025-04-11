@@ -1069,5 +1069,216 @@ def main():
     print("- 检索结果重排序与打分机制\n")
     print("这些算法组合使用，构建了端到端的高效RAG系统。")
 
+
+def optimized_rag_pipeline():
+    """优化的RAG流程测试，确保各组件间数据流连贯"""
+    print("=" * 80)
+    print("优化的检索增强生成(RAG)算法演示")
+    print("=" * 80)
+    
+    # 定义多样化的测试查询集合，包括不同难度和主题的查询
+    test_queries = [
+        {
+            "id": "q1",
+            "text": "如何减少大型语言模型的幻觉问题？",
+            "type": "problem_solving",
+            "expected_keywords": ["幻觉", "事实", "检索", "RAG"]
+        },
+        {
+            "id": "q2", 
+            "text": "向量检索和BM25各有什么优缺点？",
+            "type": "comparison",
+            "expected_keywords": ["向量", "BM25", "语义", "关键词"]
+        },
+        {
+            "id": "q3",
+            "text": "HNSW算法的工作原理是什么？",
+            "type": "technical",
+            "expected_keywords": ["HNSW", "近似最近邻", "索引", "图"]
+        }
+    ]
+    
+    # 选择一个查询进行完整流程演示
+    current_query = test_queries[0]
+    print(f"\n选择查询: '{current_query['text']}' (类型: {current_query['type']})")
+    
+    # 1. 创建文档集 - 所有后续步骤的基础
+    documents, doc_vectors, embedder = create_sample_data()
+    print(f"\n生成了 {len(documents)} 个文档和对应的向量表示")
+    
+    # 2. 查询重写和扩展 - 优化输入查询
+    rewriter, _ = test_query_rewrite()
+    rewritten_query, expanded_terms = rewriter.full_rewrite_and_expand(current_query['text'])
+    print(f"\n原始查询: '{current_query['text']}'")
+    print(f"重写后查询: '{rewritten_query}'")
+    print("扩展词条:")
+    for term, weight in expanded_terms[:5]:
+        print(f"  - {term}: {weight:.2f}")
+    
+    # 3. 向量检索准备 - 构建索引用于快速检索
+    print("\n构建检索索引...")
+    lsh_index, hnsw_index = test_ann_algorithms(doc_vectors)
+    
+    # 4. 混合检索 - 结合向量和关键词方法
+    print("\n执行混合检索...")
+    # 准备混合检索所需的候选文档格式
+    candidate_docs = []
+    for i, (doc, vec) in enumerate(zip(documents, doc_vectors)):
+        # 提取文档词条
+        try:
+            import jieba
+            terms = list(jieba.cut(doc))
+        except ImportError:
+            terms = re.findall(r'\w+', doc.lower())
+        
+        candidate_docs.append({
+            'id': i,
+            'text': doc,
+            'vector': vec,
+            'terms': terms
+        })
+    
+    # 执行混合检索
+    query_vector = embedder.embed_text(rewritten_query)
+    query_terms = [term for term, _ in expanded_terms]
+    
+    # 测试不同alpha值并选择最佳结果
+    best_alpha = 0.5  # 默认平衡权重
+    best_results = None
+    best_score = 0
+    
+    for alpha in [0.0, 0.3, 0.5, 0.7, 1.0]:
+        results = hybrid_retrieval_sort(query_vector, query_terms, candidate_docs, alpha=alpha)
+        
+        # 计算结果质量（此处简化为前3个结果的平均分）
+        avg_score = sum([score for _, score in results[:3]]) / 3
+        
+        if avg_score > best_score:
+            best_score = avg_score
+            best_alpha = alpha
+            best_results = results
+    
+    print(f"最佳混合权重 alpha={best_alpha} (得分: {best_score:.4f})")
+    print("混合检索结果:")
+    hybrid_retrieved_docs = []
+    for i, (doc_id, score) in enumerate(best_results[:5]):
+        print(f"  {i+1}. 文档 {doc_id}: {score:.4f} - {documents[doc_id]}")
+        hybrid_retrieved_docs.append(documents[doc_id])
+    
+    # 5. 使用HyDE算法进行检索增强（可选）
+    print("\n执行HyDE检索...")
+    llm = SimpleLLM()
+    hyde_prompt = f"请根据查询提供一个详细的答案：{current_query['text']}"
+    hypothetical_doc = llm.generate_text(hyde_prompt)
+    print(f"生成的假设性文档: '{hypothetical_doc[:100]}...'")
+    
+    # 使用假设性文档进行向量检索
+    hyde_vector = embedder.embed_text(hypothetical_doc)
+    hyde_results = hnsw_index.search(hyde_vector, k=5)
+    
+    print("HyDE检索结果:")
+    hyde_retrieved_docs = []
+    for i, (doc_id, score) in enumerate(hyde_results[:5]):
+        if doc_id < len(documents):
+            print(f"  {i+1}. 文档 {doc_id}: {score:.4f} - {documents[doc_id]}")
+            hyde_retrieved_docs.append(documents[doc_id])
+    
+    # 6. 检索结果融合与重排序
+    print("\n融合并重排序检索结果...")
+    
+    # 准备用于重排序的文档集
+    all_doc_ids = list(range(len(documents)))
+    
+    # 使用BM25进行重排序
+    reranker = RetrievalReranker()
+    bm25_results = reranker.bm25_rerank(rewritten_query, documents, all_doc_ids, top_k=7)
+    
+    print("BM25重排序结果:")
+    for i, (doc_id, score) in enumerate(bm25_results[:5]):
+        print(f"  {i+1}. 文档 {doc_id}: {score:.4f} - {documents[doc_id]}")
+    
+    # 合并三种检索结果集
+    all_result_sets = [
+        [(doc_id, score) for doc_id, score in best_results[:5]],  # 混合检索结果
+        [(doc_id, score) for doc_id, score in hyde_results[:5] if doc_id < len(documents)],  # HyDE结果
+        [(doc_id, score) for doc_id, score in bm25_results[:5]]   # BM25结果
+    ]
+    
+    # 使用倒数排名融合(RRF)合并结果
+    combined_results = reranker.reciprocal_rank_fusion(all_result_sets)
+    
+    print("融合后的最终检索结果:")
+    final_retrieved_docs = []
+    final_doc_ids = []
+    for i, (doc_id, score) in enumerate(combined_results[:7]):
+        print(f"  {i+1}. 文档 {doc_id}: {score:.6f} - {documents[doc_id]}")
+        final_retrieved_docs.append(documents[doc_id])
+        final_doc_ids.append(doc_id)
+    
+    # 7. 上下文压缩
+    print("\n执行上下文压缩...")
+    compressor = ContextCompressor()
+    
+    # 测试并选择最佳压缩方法
+    compression_methods = [
+        ("TextRank压缩", compressor.textrank_compression),
+        ("信息密度压缩", compressor.info_density_compression),
+        ("Map-Reduce压缩", compressor.map_reduce_compress)
+    ]
+    
+    best_compressed = None
+    best_method_name = None
+    best_quality = 0  # 简单估计的质量分数
+    
+    for name, method in compression_methods:
+        try:
+            compressed = method(final_retrieved_docs, rewritten_query, max_tokens=150)
+            compressed_len = len(compressed.split())
+            
+            # 简单估计压缩质量（包含关键词数量/长度比）
+            quality_score = 0
+            for keyword in current_query['expected_keywords']:
+                if keyword.lower() in compressed.lower():
+                    quality_score += 1
+            
+            quality_score = quality_score / (0.01 + compressed_len/200)  # 归一化
+            
+            print(f"  {name}: {compressed_len}词, 质量分数: {quality_score:.2f}")
+            
+            if quality_score > best_quality:
+                best_quality = quality_score
+                best_compressed = compressed
+                best_method_name = name
+                
+        except Exception as e:
+            print(f"  {name}失败: {e}")
+    
+    print(f"\n选择的最佳压缩方法: {best_method_name}, 质量分数: {best_quality:.2f}")
+    print(f"压缩后的上下文 ({len(best_compressed.split())}词):")
+    print(f"  '{best_compressed[:200]}...'")
+    
+    # 8. 生成最终回答
+    answer_prompt = f"基于以下上下文回答问题: {current_query['text']}\n\n上下文:\n{best_compressed}"
+    answer = llm.generate_text(answer_prompt)
+    
+    print("\n生成的最终回答:")
+    print(f"  '{answer}'")
+    
+    # 返回完整处理结果供评估
+    return {
+        'query': current_query,
+        'rewritten_query': rewritten_query,
+        'documents': documents,
+        'doc_vectors': doc_vectors,
+        'hybrid_results': best_results[:5],
+        'hyde_results': [r for r in hyde_results[:5] if r[0] < len(documents)],
+        'bm25_results': bm25_results[:5],
+        'final_results': combined_results[:7],
+        'compressed_context': best_compressed,
+        'answer': answer
+    }
+
+# 替换主函数
 if __name__ == "__main__":
-    main() 
+    optimized_rag_pipeline()
+    # main() 
