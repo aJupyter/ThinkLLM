@@ -5,6 +5,17 @@
 
 ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本仓库包含了各种LLM、MLLM、RAG、Agent、LRM、RL和MoE的关键算法和组件的Python实现，帮助开发者和研究者通过具体代码深入理解大模型的底层机制。每个算法实现都保持简洁明确，便于学习和二次开发。
 
+<div align="center">
+  <img src="images/logo.png" alt="ThinkLLM Logo" width="200"/>
+  <br/>
+  <p>🚀 轻量、高效的大语言模型算法实现</p>
+
+  [![GitHub stars](https://img.shields.io/github/stars/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/stargazers)
+  [![GitHub forks](https://img.shields.io/github/forks/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/network)
+  [![GitHub issues](https://img.shields.io/github/issues/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/issues)
+  [![GitHub license](https://img.shields.io/github/license/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/blob/main/LICENSE)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/aJupyter/ThinkLLM/pulls)
+</div>
 
 ## 项目结构
 

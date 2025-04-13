@@ -4,6 +4,19 @@
 
 ThinkLLM is an open-source project focused on implementing core algorithms for large language models. This repository contains Python implementations of key algorithms and components for LLM, MLLM, RAG, Agent, LRM, RL, and MoE, helping developers and researchers understand the underlying mechanisms of large models through concrete code. Each algorithm implementation is kept concise and clear for learning and further development.
 
+<div align="center">
+  <img src="images/logo.png" alt="ThinkLLM Logo" width="200"/>
+  <br/>
+  <p>🚀 Lightweight, efficient implementation of large language model algorithms</p>
+
+  [![GitHub stars](https://img.shields.io/github/stars/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/stargazers)
+  [![GitHub forks](https://img.shields.io/github/forks/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/network)
+  [![GitHub issues](https://img.shields.io/github/issues/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/issues)
+  [![GitHub license](https://img.shields.io/github/license/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/blob/main/LICENSE)
+  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/aJupyter/ThinkLLM/pulls)
+</div>
+
+
 ## Project Structure
 
 ### 1. Transformer Core Algorithms
