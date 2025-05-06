@@ -1,7 +1,7 @@
 # 🚀ThinkLLM：大语言模型算法与组件实现
 
 <div align="center">
-    简体中文| <a href="README_EN.md" >English</a>
+    简体中文| <a href="./README_en.md" >English</a>
 </div>
 
 
