@@ -190,3 +190,11 @@ This section is to be completed and aims to share high-value learning resources.
 ## License 😄
 
 This project is licensed under the [Apache License](./LICENSE).
+
+## Star History✨
+
+[![Star History Chart](https://api.star-history.com/svg?repos=aJupyter/ThinkLLM&type=Date)](https://star-history.com/#aJupyter/ThinkLLM&Date)
+
+## Contributors
+
+[![EmoLLM contributors](https://contrib.rocks/image?repo=aJupyter/ThinkLLM&max=50)](https://github.com/aJupyter/ThinkLLM/graphs/contributors)

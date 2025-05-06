@@ -191,3 +191,11 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
 
 ## 许可证😄
 本项目采用[Apache License](./LICENSE)。
+
+## Star History✨
+
+[![Star History Chart](https://api.star-history.com/svg?repos=aJupyter/ThinkLLM&type=Date)](https://star-history.com/#aJupyter/ThinkLLM&Date)
+
+## Contributors
+
+[![EmoLLM contributors](https://contrib.rocks/image?repo=aJupyter/ThinkLLM&max=50)](https://github.com/aJupyter/ThinkLLM/graphs/contributors)
