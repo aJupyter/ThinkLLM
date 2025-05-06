@@ -1,9 +1,16 @@
-# ThinkLLM：大语言模型算法与组件实现
+# 🚀ThinkLLM：大语言模型算法与组件实现
+
+<div align="center">
+    简体中文| <a href="README_EN.md" >English</a>
+</div>
 
 
-## 项目简介
+
+## 项目简介🌟
 
 ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本仓库包含了各种LLM、MLLM、RAG、Agent、LRM、RL和MoE的关键算法和组件的Python实现，帮助开发者和研究者通过具体代码深入理解大模型的底层机制。每个算法实现都保持简洁明确，便于学习和二次开发。
+
+如果对大模型全栈实践感兴趣，可以参考完全开源的[EmoLLM](https://github.com/SmartFlowAI/EmoLLM)。
 
 <div align="center">
   <img src="images/logo.png" alt="ThinkLLM Logo" width="200"/>
@@ -17,7 +24,15 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/aJupyter/ThinkLLM/pulls)
 </div>
 
-## 项目结构
+## 更新🔥
+
+更多、更好的内容在路上！
+
+- [2025.5] 可以使用[deepwiki](https://deepwiki.com/aJupyter/ThinkLLM)辅助理解该项目
+- [2025.4] 更新[RAG](./RAG)、[BPE](./LLM/BPE.ipynb)
+- [2025.3] 更新[MHA/GQA/MQA](./transformer_component/MHA_GQA_MQA_MLA.ipynb)、[VIT](./multimodal/ViT.ipynb)
+
+## 项目大纲📖
 
 ### 1. Transformer核心算法
 
@@ -159,25 +174,20 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
   - 条件计算与激活稀疏性
   - 专家参数共享与更新策略
 
-## 使用指南
+## 使用指南💡
 
-- 环境配置与依赖安装
-- 每个算法的独立测试方法
-- 性能评估与对比方案
-- 自定义扩展指南
+- 找到感兴趣的文件夹阅读学习即可，每个文件夹都具有相应的依赖。
 
-## 贡献指南
+## 贡献指南👏
 
-- 算法贡献流程
-- 代码规范与测试要求
-- 文档与注释标准
+- 我们欢迎任何的贡献，具体形式最好是一个可一键运行的入口文件或者notebook。
 
-## 参考资源
+## 参考资源🪐
 
+该部分待完善，旨在分享一些高价值学习资料。
 - 算法原理相关论文
 - 优秀实现参考
 - 推荐学习路径
 
-## 许可证
-
-本项目采用的开源许可证信息
+## 许可证😄
+本项目采用[Apache License](./LICENSE)。

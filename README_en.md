@@ -1,13 +1,19 @@
-# ThinkLLM: Large Language Model Algorithms and Component Implementations
+# 🚀ThinkLLM: Implementation of Large Language Model Algorithms and Components
 
-## Project Overview
+<div align="center">
+    <a href="README.md" > 简体中文 </a>| English
+</div>
 
-ThinkLLM is an open-source project focused on implementing core algorithms for large language models. This repository contains Python implementations of key algorithms and components for LLM, MLLM, RAG, Agent, LRM, RL, and MoE, helping developers and researchers understand the underlying mechanisms of large models through concrete code. Each algorithm implementation is kept concise and clear for learning and further development.
+## Project Overview 🌟
+
+ThinkLLM is an open-source project focused on the implementation of core algorithms for large language models. This repository contains Python implementations of key algorithms and components for various models like LLM, MLLM, RAG, Agent, LRM, RL, and MoE, helping developers and researchers delve into the underlying mechanisms of large models through specific code. Each algorithm implementation is concise and clear, facilitating learning and secondary development.
+
+If you're interested in full-stack practice with large models, you can refer to the fully open-source [EmoLLM](https://github.com/SmartFlowAI/EmoLLM).
 
 <div align="center">
   <img src="images/logo.png" alt="ThinkLLM Logo" width="200"/>
   <br/>
-  <p>🚀 Lightweight, efficient implementation of large language model algorithms</p>
+  <p>🚀 Lightweight and Efficient Large Language Model Algorithm Implementations</p>
 
   [![GitHub stars](https://img.shields.io/github/stars/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/stargazers)
   [![GitHub forks](https://img.shields.io/github/forks/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/network)
@@ -16,168 +22,171 @@ ThinkLLM is an open-source project focused on implementing core algorithms for l
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/aJupyter/ThinkLLM/pulls)
 </div>
 
+## Updates 🔥
 
-## Project Structure
+More and better content on the way!
 
-### 1. Transformer Core Algorithms
+- [2025.5] You can use [deepwiki](https://deepwiki.com/aJupyter/ThinkLLM) to help understand this project
+- [2025.4] Updated [RAG](./RAG), [BPE](./LLM/BPE.ipynb)
+- [2025.3] Updated [MHA/GQA/MQA](./transformer_component/MHA_GQA_MQA_MLA.ipynb), [VIT](./multimodal/ViT.ipynb)
+
+## Project Outline 📖
+
+### 1. Core Transformer Algorithms
 
 - **Attention Mechanism Algorithms**
-  - Classic Self-Attention implementation
-  - Multi-Head Attention (MHA) forward and backward propagation algorithms
-  - Group Query Attention (GQA) efficient implementation
-  - Multi-Query Attention (MQA) memory-saving algorithm
-  - Mixed Linear Attention (MLA) computation and optimization
-  - FlashAttention algorithm implementation and performance analysis
-- **Position Encoding Algorithms**
-  - Sinusoidal position encoding implementation
-  - Learnable position encoding training algorithm
-  - Relative position encoding (RPE) computation methods
-  - Rotary Position Encoding (RoPE) mathematical principles and vector transformation algorithm
-  - ALiBi position bias algorithm implementation
+  - Classic Self-Attention Implementation
+  - Forward and Backward Propagation of Multi-Head Attention (MHA)
+  - Efficient Implementation of Grouped Query Attention (GQA)
+  - Memory-Efficient Multi-Query Attention (MQA) Algorithms
+  - Mixed Linear Attention (MLA) Computation and Optimization
+  - FlashAttention Implementation and Performance Analysis
+- **Positional Encoding Algorithms**
+  - Sinusoidal Positional Encoding Implementation
+  - Learnable Positional Encoding Training Algorithms
+  - Relative Positional Encoding Calculation Methods
+  - Mathematical Principles and Vector Transformation of Rotary Positional Encoding (RoPE)
+  - Implementation of ALiBi Positional Bias Algorithm
 - **Normalization Layer Algorithms**
-  - LayerNorm forward and backward propagation implementation
-  - RMSNorm algorithm and computational optimization
-  - GroupNorm application in Transformers
-  - Normalization position (Pre/Post-LN) impact on training stability
-- **Activation Functions and Feed-Forward Networks**
-  - GELU/SiLU activation function implementation
-  - SwiGLU gated transformation algorithm
-  - GLU (Gated Linear Unit) and its variants implementation
-  - MoE-FFN (Mixture of Experts Feed-Forward Network) conditional computation
+  - Forward and Backward Propagation of LayerNorm
+  - RMSNorm Algorithm and Computational Optimization
+  - Application of GroupNorm in Transformers
+  - Impact of Pre/Post-LN Normalization on Training Stability
+- **Activation Functions and Feedforward Networks**
+  - GELU/SiLU Activation Function Implementation
+  - SwiGLU Gated Transformation Algorithm
+  - Implementation of GLU (Gated Linear Unit) and its Variants
+  - Conditional Computation in MoE-FFN (Mixture of Experts Feedforward Networks)
 
 ### 2. Model Training and Optimization Algorithms
 
-- **Pretraining Algorithms**
-  - Causal Language Model (CLM) pretraining objective implementation
-  - Masked Language Model (MLM) training algorithm
-  - Prefix Language Model (PrefixLM) implementation
-  - Denoising Autoencoder (DAE) training strategy
+- **Pre-training Algorithms**
+  - Implementation of Causal Language Model (CLM) Pre-training Objectives
+  - Masked Language Model (MLM) Training Algorithms
+  - Prefix Language Model (PrefixLM) Implementation
+  - Denoising Autoencoder (DAE) Training Strategy
 - **Sequence Generation Algorithms**
-  - Greedy Decoding implementation
-  - Beam Search algorithm
-  - Nucleus Sampling and Temperature Sampling algorithms
-  - Typical Sampling implementation
-  - MCTS (Monte Carlo Tree Search) application in language generation
+  - Greedy Decoding Implementation
+  - Beam Search Algorithm
+  - Nucleus Sampling and Temperature Sampling Algorithms
+  - Typical Sampling Implementation
+  - Application of MCTS (Monte Carlo Tree Search) in Language Generation
 - **Optimization Algorithms**
-  - AdamW optimizer implementation with weight decay separation
-  - Lion optimizer algorithm implementation
-  - Learning rate warmup and cosine decay strategies
-  - Gradient accumulation and gradient clipping implementation
-  - Mixed Precision Training (AMP) algorithm
+  - AdamW Optimizer and Decoupling of Weight Decay
+  - Implementation of Lion Optimizer Algorithm
+  - Learning Rate Warm-up and Cosine Decay Strategies
+  - Gradient Accumulation and Clipping Implementation
+  - Mixed Precision Training (AMP) Algorithm
 
 ### 3. Efficient Inference and Deployment Algorithms
 
 - **Inference Optimization Algorithms**
-  - KV cache implementation and management strategies
-  - Continuous Batching algorithm
-  - Inference-stage activation quantization methods
-  - Paged Attention memory management algorithm
-  - Speculative Decoding inference acceleration technique
+  - KV Cache Implementation and Management Strategy
+  - Continuous Batching Algorithm
+  - Quantization Methods for Activation Values During Inference
+  - Memory Management Algorithms for Paged Attention
+  - Speculative Decoding for Inference Acceleration
 - **Quantization Algorithms**
-  - Weight quantization algorithms (INT8/INT4/NF4)
-  - ZeroQuant quantization algorithm implementation
-  - GPTQ quantization process and optimization
-  - AWQ (Activation-aware Weight Quantization) algorithm
-  - QLoRA quantized fine-tuning algorithm
+  - Weight Quantization Algorithms (INT8/INT4/NF4)
+  - ZeroQuant Quantization Algorithm Implementation
+  - GPTQ Quantization Process and Optimization
+  - AWQ (Activation Aware Quantization) Algorithm
+  - QLoRA Quantization Fine-Tuning Algorithm
 
 ### 4. Long Sequence Processing Algorithms
 
-- **Long Context Techniques**
-  - Position Interpolation algorithm
-  - Sliding Window Attention implementation
-  - Longformer-style sparse attention algorithm
-  - Recursive State Space Model (Mamba) core algorithm
-  - Efficient Recomputation strategy algorithm
-- **Memory Enhancement Mechanisms**
-  - External memory retrieval algorithm
-  - GateLoop memory-enhanced recurrent mechanism
-  - RWKV linear attention algorithm implementation
-  - StreamingLLM infinite context algorithm
+- **Long Context Technologies**
+  - Positional Interpolation Algorithm
+  - Sliding Window Attention Implementation
+  - Sparse Attention Algorithm for Longformer-like Models
+  - Core Algorithms of Recursive State Space Models (Mamba)
+  - Efficient Recomputation Strategy Algorithm
+- **Memory Augmentation Mechanisms**
+  - External Memory Retrieval Algorithms
+  - GateLoop Memory Augmented Cycling Mechanism
+  - RWKV Linear Attention Algorithm Implementation
+  - StreamingLLM Infinite Context Algorithm
 
-### 5. Multimodal Algorithms
+### 5. Multi-Modal Algorithms
 
 - **Visual Encoding Algorithms**
-  - ViT (Vision Transformer) basic algorithm implementation
-  - CLIP vision encoder forward propagation algorithm
-  - Image feature extraction and mapping algorithm
-  - Visual segmentation and feature fusion techniques
-- **Cross-modal Fusion Algorithms**
-  - Projection layer design and implementation
-  - Cross-modal attention computation method
-  - Alignment space construction algorithm
-  - Vision-language representation alignment method
+  - ViT (Vision Transformer) Basic Algorithm Implementation
+  - Forward Propagation of CLIP Visual Encoder
+  - Image Feature Extraction and Mapping Algorithms
+  - Visual Segmentation and Feature Fusion Techniques
+- **Cross-Modal Fusion Algorithms**
+  - Design and Implementation of Projection Layers
+  - Cross-Modal Attention Calculation Method
+  - Construction Algorithm for Alignment Space
+  - Visual-Language Representation Alignment Method
 
 ### 6. Retrieval-Augmented Generation (RAG) Algorithms
 
 - **Vector Retrieval Algorithms**
-  - Cosine similarity and dot product similarity computation
-  - Approximate Nearest Neighbor (ANN) fast retrieval algorithm
-  - HNSW index construction and query algorithm
-  - Hybrid retrieval ranking algorithm implementation
+  - Cosine Similarity and Dot Product Similarity Calculation
+  - Fast Retrieval Algorithm for Approximate Nearest Neighbor (ANN)
+  - HNSW Index Construction and Query Algorithm
+  - Implementation of Hybrid Retrieval Ranking Algorithm
 - **Retrieval Optimization Algorithms**
-  - Query rewriting and expansion algorithm
-  - HyDE (Hypothetical Document Embedding) algorithm
-  - Context compression and information preservation algorithm
-  - Retrieval result reranking and scoring mechanism
+  - Query Rewrite and Expansion Algorithm
+  - HyDE (Hypothetical Document Embedding) Algorithm
+  - Context Compression and Information Retention Algorithms
+  - Retrieval Result Re-ranking and Scoring Mechanism
 
 ### 7. Agent and Planning Algorithms
 
-- **Reasoning and Planning Algorithms**
-  - ReAct framework core algorithm implementation
-  - Chain-of-Thought prompting algorithm
-  - Self-reflection and correction algorithm
-  - Tree-of-Thought search algorithm
+- **Inference and Planning Algorithms**
+  - Core Algorithm Implementation of ReAct Framework
+  - Chain-of-Thought Guidance Algorithm
+  - Self-Reflection and Correction Algorithm
+  - Search Algorithm for Tree-of-Thought
 - **Tool Usage Algorithms**
-  - Tool call parsing and parameter extraction algorithm
-  - Output format control algorithm
-  - Tool result integration and subsequent reasoning algorithm
-  - Cyclic tool calling and termination conditions
+  - Tool Invocation Parsing and Parameter Extraction Algorithm
+  - Output Format Control Algorithm
+  - Tool Result Integration and Subsequent Inference Algorithm
+  - Loop Tool Invocation and Termination Conditions
 
 ### 8. Reinforcement Learning (RL) and Human Feedback
 
-- **Policy Optimization Based Algorithms**
-  - PPO (Proximal Policy Optimization) implementation in LLMs
-  - Reward model training algorithm
-  - KL penalty term calculation and application
-  - DPO (Direct Preference Optimization) algorithm implementation
-- **Human Feedback Based Algorithms**
-  - RLHF data processing and training algorithm
-  - Preference comparison learning algorithm
-  - Human preference modeling and ranking learning
-  - Alignment Tax measurement and optimization
+- **Policy Optimization Algorithms**
+  - Implementation of PPO (Proximal Policy Optimization) in LLMs
+  - Reward Model Training Algorithm
+  - KL Penalty Calculation and Application
+  - DPO (Direct Preference Optimization) Algorithm Implementation
+- **Human Feedback-Based Algorithms**
+  - RLHF Data Processing and Training Algorithms
+  - Comparison Learning Algorithm for Preferences
+  - Human Preference Modeling and Ranking Learning
+  - Measurement and Optimization of Alignment Tax
 
-### 9. Mixture of Experts (MoE) Algorithms
+### 9. Mixture of Experts Model (MoE) Algorithms
 
 - **Routing Algorithms**
-  - Top-K gating mechanism implementation
-  - Hash-based expert assignment algorithm
-  - Soft routing vs. hard routing algorithm comparison
-  - Load-balancing routing algorithm
+  - Implementation of Top-K Gating Mechanism
+  - Expert Allocation Algorithm Based on Hashing
+  - Comparison of Soft Routing and Hard Routing Algorithms
+  - Load Balancing Routing Algorithm
 - **Expert System Algorithms**
-  - Expert parallel training algorithm
-  - Expert selection and combination algorithm
-  - Conditional computation and activation sparsity
-  - Expert parameter sharing and update strategy
+  - Parallel Training Algorithm for Experts
+  - Expert Selection and Combination Algorithms
+  - Conditional Computation and Activation Sparsity
+  - Strategies for Expert Parameter Sharing and Updating
 
-## Usage Guide
+## Usage Guide 💡
 
-- Environment setup and dependency installation
-- Independent testing method for each algorithm
-- Performance evaluation and comparison plans
-- Custom extension guide
+- Find the folder of interest to study; each folder has its dependencies.
 
-## Contribution Guidelines
+## Contribution Guide 👏
 
-- Algorithm contribution process
-- Code standards and testing requirements
-- Documentation and comment standards
+- We welcome any contributions; ideally, contributions should come as an easily runnable entry file or notebook.
 
-## Reference Resources
+## Reference Resources 🪐
 
-- Algorithm-related research papers
-- Excellent implementation references
+This section is to be completed and aims to share high-value learning resources.
+- Papers related to algorithm principles
+- References for excellent implementations
 - Recommended learning paths
 
-## License
+## License 😄
 
-Open source license information for this project
+This project is licensed under the [Apache License](./LICENSE).
