@@ -28,7 +28,7 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
 
 更多、更好的内容在路上！
 
-- [2025.5] 可以使用[deepwiki](https://deepwiki.com/aJupyter/ThinkLLM)辅助理解该项目
+- [2025.5] 可以使用[deepwiki](https://deepwiki.com/aJupyter/ThinkLLM)辅助理解该项目，更新[MLA](./transformer_component/MLA_FlashAttention.ipynb)、[multimodal](./multimodal)等内容
 - [2025.4] 更新[RAG](./RAG)、[BPE](./LLM/BPE.ipynb)
 - [2025.3] 更新[MHA/GQA/MQA](./transformer_component/MHA_GQA_MQA_MLA.ipynb)、[VIT](./multimodal/ViT.ipynb)
 
@@ -195,6 +195,7 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
 ## Star History✨
 
 [![Star History Chart](https://api.star-history.com/svg?repos=aJupyter/ThinkLLM&type=Date)](https://star-history.com/#aJupyter/ThinkLLM&Date)
+
 
 ## Contributors
 

@@ -26,7 +26,7 @@ If you're interested in full-stack practice with large models, you can refer to 
 
 More and better content on the way!
 
-- [2025.5] You can use [deepwiki](https://deepwiki.com/aJupyter/ThinkLLM) to help understand this project
+- [2025.5] You can use [deepwiki](https://deepwiki.com/aJupyter/ThinkLLM) to help understand this project, Update the contents of [MLA](./transformer_component/MLA_FlashAttention.ipynb)、[multimodal](./multimodal), etc.
 - [2025.4] Updated [RAG](./RAG), [BPE](./LLM/BPE.ipynb)
 - [2025.3] Updated [MHA/GQA/MQA](./transformer_component/MHA_GQA_MQA_MLA.ipynb), [VIT](./multimodal/ViT.ipynb)
 
