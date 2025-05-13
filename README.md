@@ -37,12 +37,12 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
 ### 1. Transformer核心算法
 
 - **注意力机制算法**
-  - 经典自注意力机制（Self-Attention）实现
-  - 多头注意力（MHA）的前向与反向传播算法
-  - 分组查询注意力（GQA）的高效实现
-  - 多查询注意力（MQA）的省内存算法
-  - 混合线性注意力（MLA）计算与优化
-  - FlashAttention算法实现与性能分析
+  - [经典自注意力机制（Self-Attention）实现](./transformer_component/Transformer_Basics.ipynb)
+  - [多头注意力（MHA）的前向与反向传播算法](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [分组查询注意力（GQA）的高效实现](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [多查询注意力（MQA）的省内存算法](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [混合线性注意力（MLA）计算与优化](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [FlashAttention算法实现与性能分析](./transformer_component/MLA_FlashAttention.ipynb)
 - **位置编码算法**
   - 正弦余弦位置编码（Sinusoidal）实现
   - 可学习位置编码（Learnable PE）训练算法
@@ -112,7 +112,7 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
 ### 5. 多模态算法
 
 - **视觉编码算法**
-  - ViT（Vision Transformer）基础算法实现
+  - [ViT（Vision Transformer）基础算法实现](./multimodal/ViT.ipynb)
   - CLIP视觉编码器前向传播算法
   - 图像特征提取与映射算法
   - 视觉分割与特征融合技术
@@ -125,15 +125,15 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
 ### 6. 检索增强生成(RAG)算法
 
 - **向量检索算法**
-  - 余弦相似度与点积相似度计算
-  - 近似最近邻（ANN）快速检索算法
-  - HNSW索引构建与查询算法
-  - 混合检索排序算法实现
+  - [余弦相似度与点积相似度计算](./RAG/vector_retrival/cosine_dot_product_similarity.py)
+  - [近似最近邻（ANN）快速检索算法](./RAG/vector_retrival/approximate_nearest_neighbor.py)
+  - [HNSW索引构建与查询算法](./RAG/vector_retrival/hnsw_index.py)
+  - [混合检索排序算法实现](./RAG/retrival_optimization/hybrid_retrieval_sort.py)
 - **检索优化算法**
-  - 查询重写与扩展算法
-  - HyDE（假设性文档嵌入）算法
-  - 上下文压缩与信息保留算法
-  - 检索结果重排序与打分机制
+  - [查询重写与扩展算法](./RAG/retrival_optimization/query_rewrite_expansion.py)
+  - [HyDE（假设性文档嵌入）算法](./RAG/retrival_optimization/hyde_algorithm.py)
+  - [上下文压缩与信息保留算法](./RAG/retrival_optimization/query_rewrite_expansion.py)
+  - [检索结果重排序与打分机制](./RAG/retrival_optimization/retrieval_reranking.py)
 
 ### 7. Agent与规划算法
 
