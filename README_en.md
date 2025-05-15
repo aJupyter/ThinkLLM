@@ -35,12 +35,12 @@ More and better content on the way!
 ### 1. Core Transformer Algorithms
 
 - **Attention Mechanism Algorithms**
-  - Classic Self-Attention Implementation
-  - Forward and Backward Propagation of Multi-Head Attention (MHA)
-  - Efficient Implementation of Grouped Query Attention (GQA)
-  - Memory-Efficient Multi-Query Attention (MQA) Algorithms
-  - Mixed Linear Attention (MLA) Computation and Optimization
-  - FlashAttention Implementation and Performance Analysis
+  - [Classic Self-Attention Implementation](./transformer_component/Transformer_Basics.ipynb)
+  - [Forward and Backward Propagation of Multi-Head Attention](MHA)(./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [Efficient Implementation of Grouped Query Attention](GQA)(./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [Memory-Efficient Multi-Query Attention (MQA)]Algorithms(./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [Mixed Linear Attention (MLA) Computation and Optimization](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
+  - [FlashAttention Implementation and Performance Analysis](./transformer_component/MLA_FlashAttention.ipynb)
 - **Positional Encoding Algorithms**
   - Sinusoidal Positional Encoding Implementation
   - Learnable Positional Encoding Training Algorithms
@@ -57,6 +57,10 @@ More and better content on the way!
   - SwiGLU Gated Transformation Algorithm
   - Implementation of GLU (Gated Linear Unit) and its Variants
   - Conditional Computation in MoE-FFN (Mixture of Experts Feedforward Networks)
+- **Tokenization**
+  - WordPiece
+  - [Byte-Pair Encoding (BPE)](./LLM/BPE.ipynb)
+  - Byte-level BPE(BBPE)
 
 ### 2. Model Training and Optimization Algorithms
 
@@ -110,7 +114,7 @@ More and better content on the way!
 ### 5. Multi-Modal Algorithms
 
 - **Visual Encoding Algorithms**
-  - ViT (Vision Transformer) Basic Algorithm Implementation
+  - [ViT (Vision Transformer) Basic Algorithm Implementation](./multimodal/ViT.ipynb)
   - Forward Propagation of CLIP Visual Encoder
   - Image Feature Extraction and Mapping Algorithms
   - Visual Segmentation and Feature Fusion Techniques
@@ -123,16 +127,15 @@ More and better content on the way!
 ### 6. Retrieval-Augmented Generation (RAG) Algorithms
 
 - **Vector Retrieval Algorithms**
-  - Cosine Similarity and Dot Product Similarity Calculation
-  - Fast Retrieval Algorithm for Approximate Nearest Neighbor (ANN)
-  - HNSW Index Construction and Query Algorithm
-  - Implementation of Hybrid Retrieval Ranking Algorithm
+  - [Cosine Similarity and Dot Product Similarity Calculation](./RAG/vector_retrival/cosine_dot_product_similarity.py)
+  - [Fast Retrieval Algorithm for Approximate Nearest Neighbor (ANN)](./RAG/vector_retrival/approximate_nearest_neighbor.py)
+  - [HNSW Index Construction and Query Algorithm](./RAG/vector_retrival/hnsw_index.py)
+  - [Implementation of Hybrid Retrieval Ranking Algorithm](./RAG/retrival_optimization/hybrid_retrieval_sort.py)
 - **Retrieval Optimization Algorithms**
-  - Query Rewrite and Expansion Algorithm
-  - HyDE (Hypothetical Document Embedding) Algorithm
-  - Context Compression and Information Retention Algorithms
-  - Retrieval Result Re-ranking and Scoring Mechanism
-
+  - [Query Rewrite and Expansion Algorithm](./RAG/retrival_optimization/query_rewrite_expansion.py)
+  - [HyDE (Hypothetical Document Embedding) Algorithm](./RAG/retrival_optimization/hyde_algorithm.py)
+  - [Context Compression and Information Retention Algorithms](./RAG/retrival_optimization/query_rewrite_expansion.py)
+  - [Retrieval Result Re-ranking and Scoring Mechanism](./RAG/retrival_optimization/retrieval_reranking.py)
 ### 7. Agent and Planning Algorithms
 
 - **Inference and Planning Algorithms**
