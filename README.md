@@ -59,6 +59,10 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
   - SwiGLU门控变换算法
   - GLU（门控线性单元）及其变体的实现
   - MoE-FFN（专家混合前馈网络）的条件计算
+- **Tokenization**
+  - WordPiece
+  - [Byte-Pair Encoding (BPE)](./LLM/BPE.ipynb)
+  - Byte-level BPE(BBPE)
 
 ### 2. 模型训练与优化算法
 
