@@ -1,20 +1,33 @@
-# 🚀 ThinkLLM：大语言模型算法与组件实现
-
 <div align="center">
-    简体中文 | <a href="./README_en.md">English</a>
+
+# 🚀 ThinkLLM
+
+<img src="images/logo.png" alt="ThinkLLM Logo" width="180"/>
+
+### 大语言模型算法与组件实现 · 轻量 · 高效 · 从零复现
+
+简体中文 | <a href="./README_en.md">English</a>
+
+[![GitHub stars](https://img.shields.io/github/stars/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/network)
+[![GitHub issues](https://img.shields.io/github/issues/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/issues)
+[![GitHub license](https://img.shields.io/github/license/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/aJupyter/ThinkLLM/pulls)
+
 </div>
 
 <div align="center">
-  <img src="images/logo.png" alt="ThinkLLM Logo" width="200"/>
-  <br/>
-  <p>🚀 轻量、高效的大语言模型算法实现</p>
-
-  [![GitHub stars](https://img.shields.io/github/stars/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/stargazers)
-  [![GitHub forks](https://img.shields.io/github/forks/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/network)
-  [![GitHub issues](https://img.shields.io/github/issues/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/issues)
-  [![GitHub license](https://img.shields.io/github/license/aJupyter/ThinkLLM?style=flat-square)](https://github.com/aJupyter/ThinkLLM/blob/main/LICENSE)
-  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/aJupyter/ThinkLLM/pulls)
+  <a href="#intro">📖 项目简介</a> ·
+  <a href="#updates">🔥 更新</a> ·
+  <a href="#structure">🗂️ 目录结构</a> ·
+  <a href="#modules">🧭 模块导航</a> ·
+  <a href="#quickstart">💡 快速开始</a> ·
+  <a href="#details">📦 模块详解</a> ·
+  <a href="#roadmap">🗺️ Roadmap</a> ·
+  <a href="#contributing">👏 贡献</a>
 </div>
+
+<a id="intro"></a>
 
 ## 项目简介 🌟
 
@@ -29,12 +42,16 @@
 > 如果你对大模型全栈实践感兴趣，可以参考完全开源的 [EmoLLM](https://github.com/SmartFlowAI/EmoLLM)。
 > 也可以使用 [DeepWiki](https://deepwiki.com/aJupyter/ThinkLLM) 辅助理解本项目。
 
+<a id="updates"></a>
+
 ## 更新 🔥
 
 - **[2025.6]** 新增 [Agent 模块](./agent)：ReAct / CoT / 反思 / ToT（手写 demo + 工具 hack）；新增 [RL 模块](./rl)：PPO / GRPO Loss 从零实现；统一并规范化目录结构
 - **[2025.5]** 支持 [DeepWiki](https://deepwiki.com/aJupyter/ThinkLLM) 辅助阅读；新增 [MLA / FlashAttention](./transformer/mla_flash_attention.ipynb)、[多模态](./multimodal) 系列
 - **[2025.4]** 新增 [RAG 算法库](./rag)、[BPE 分词](./tokenizer/bpe.ipynb)
 - **[2025.3]** 新增 [MHA / GQA / MQA](./transformer/attention_mha_gqa_mqa_mla.ipynb)、[ViT](./multimodal/vit.ipynb)
+
+<a id="structure"></a>
 
 ## 目录结构 🗂️
 
@@ -54,24 +71,30 @@ ThinkLLM/
 
 > 命名规范：目录与文件统一使用**小写 + 下划线（snake_case）**，不含空格与特殊字符。
 
+> 📂 **各模块文档导航**：[transformer](./transformer/README.md) · [tokenizer](./tokenizer/README.md) · [multimodal](./multimodal/README.md) · [rag](./rag/README.md) · [moe](./moe/README.md) · [rl](./rl/README.md) · [agent](./agent/README.md)
+
+<a id="modules"></a>
+
 ## 模块导航 🧭
 
-下表是目前**已经实现**的内容总览，点击文件即可直接阅读 / 运行。`状态` 中 ✅ 表示已实现，🚧 表示规划中（见文末 [Roadmap](#规划路线图-roadmap)）。
+下表是目前**已经实现**的内容总览。点击「**模块**」进入对应文件夹的说明文档，点击「**入口文件**」直接阅读 / 运行。`状态` 中 ✅ 表示已实现，🚧 表示规划中（见文末 [Roadmap](#规划路线图-roadmap)）。
 
 | 模块 | 主题 | 入口文件 | 形式 | 状态 |
 | --- | --- | --- | --- | --- |
-| transformer | Transformer 全组件（NumPy 复现） | [`transformer_basics.ipynb`](./transformer/transformer_basics.ipynb) | Notebook | ✅ |
-| transformer | MHA / GQA / MQA（概念 + 原理） | [`attention_mha_gqa_mqa.ipynb`](./transformer/attention_mha_gqa_mqa.ipynb) | Notebook | ✅ |
-| transformer | MHA / GQA 模块化实现 | [`attention_mha_gqa_mqa_mla.ipynb`](./transformer/attention_mha_gqa_mqa_mla.ipynb) | Notebook | ✅ |
-| transformer | 线性注意力 / FlashAttention | [`mla_flash_attention.ipynb`](./transformer/mla_flash_attention.ipynb) | Notebook | ✅ |
-| tokenizer | BPE 分词器训练与评估 | [`bpe.ipynb`](./tokenizer/bpe.ipynb) | Notebook | ✅ |
-| multimodal | ViT（Vision Transformer） | [`vit.ipynb`](./multimodal/vit.ipynb) | Notebook | ✅ |
-| multimodal | 图像特征提取与映射 | [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | Notebook | ✅ |
-| multimodal | 跨模态投影层与融合 | [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | Notebook | ✅ |
-| rag | 向量检索 + 检索优化算法库 | [`rag/`](./rag) · [说明](./rag/README.md) | 脚本 + Notebook | ✅ |
-| moe | 基础 MoE 与 Sparse MoE | [`moe.ipynb`](./moe/moe.ipynb) | Notebook | ✅ |
-| rl | PPO / GRPO Loss 从零实现 | [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | Notebook | ✅ |
-| agent | ReAct / CoT / 反思 / ToT（含手写 demo） | [`react_agent.ipynb`](./agent/react_agent.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | Transformer 全组件（NumPy 复现） | [`transformer_basics.ipynb`](./transformer/transformer_basics.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | MHA / GQA / MQA（概念 + 原理） | [`attention_mha_gqa_mqa.ipynb`](./transformer/attention_mha_gqa_mqa.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | MHA / GQA 模块化实现 | [`attention_mha_gqa_mqa_mla.ipynb`](./transformer/attention_mha_gqa_mqa_mla.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | 线性注意力 / FlashAttention | [`mla_flash_attention.ipynb`](./transformer/mla_flash_attention.ipynb) | Notebook | ✅ |
+| [📂 tokenizer](./tokenizer/README.md) | BPE 分词器训练与评估 | [`bpe.ipynb`](./tokenizer/bpe.ipynb) | Notebook | ✅ |
+| [📂 multimodal](./multimodal/README.md) | ViT（Vision Transformer） | [`vit.ipynb`](./multimodal/vit.ipynb) | Notebook | ✅ |
+| [📂 multimodal](./multimodal/README.md) | 图像特征提取与映射 | [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | Notebook | ✅ |
+| [📂 multimodal](./multimodal/README.md) | 跨模态投影层与融合 | [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | Notebook | ✅ |
+| [📂 rag](./rag/README.md) | 向量检索 + 检索优化算法库 | [`rag/`](./rag) · [说明](./rag/README.md) | 脚本 + Notebook | ✅ |
+| [📂 moe](./moe/README.md) | 基础 MoE 与 Sparse MoE | [`moe.ipynb`](./moe/moe.ipynb) | Notebook | ✅ |
+| [📂 rl](./rl/README.md) | PPO / GRPO Loss 从零实现 | [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | Notebook | ✅ |
+| [📂 agent](./agent/README.md) | ReAct / CoT / 反思 / ToT（含手写 demo） | [`react_agent.ipynb`](./agent/react_agent.ipynb) | Notebook | ✅ |
+
+<a id="quickstart"></a>
 
 ## 环境与快速开始 💡
 
@@ -93,9 +116,11 @@ jupyter notebook
 
 ---
 
+<a id="details"></a>
+
 ## 已实现模块详解 📦
 
-### 1. Transformer 核心组件（`transformer/`）
+### 1. Transformer 核心组件（[`transformer/`](./transformer/README.md)）
 
 > 从零理解一个 Transformer 是如何"算"出来的：注意力、位置编码、归一化、前馈网络逐个拆解。
 
@@ -108,7 +133,7 @@ jupyter notebook
 
 **动手建议**：先读 `transformer_basics`（NumPy 直观版），再看 `attention_*`（理解显存优化），最后看 `mla_flash_attention`（理解推理加速）。
 
-### 2. Tokenization 分词（`tokenizer/`）
+### 2. Tokenization 分词（[`tokenizer/`](./tokenizer/README.md)）
 
 > 模型看到的是 token，不是文字。本模块讲清楚 BPE 是怎么"学会"切词的。
 
@@ -116,7 +141,7 @@ jupyter notebook
 | --- | --- | --- |
 | [`bpe.ipynb`](./tokenizer/bpe.ipynb) | BPE 的训练流程（统计相邻对 → 合并最高频对 → 迭代）与编解码流程 | `train_tokenizer` · `eval_tokenizer`，配套语料 [`bpe.jsonl`](./tokenizer/bpe.jsonl) |
 
-### 3. 多模态算法（`multimodal/`）
+### 3. 多模态算法（[`multimodal/`](./multimodal/README.md)）
 
 > 让模型"看懂"图像：从图像切块编码，到把视觉特征对齐进语言空间。
 
@@ -126,7 +151,7 @@ jupyter notebook
 | [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | 图像特征的提取与映射 | 特征提取器 → 特征映射模块 → 完整流水线 → 特征可视化 → 端到端示例 |
 | [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | 跨模态投影与对齐 | 投影层设计 → 跨模态融合层 → 对比学习 → 端到端训练 |
 
-### 4. 检索增强生成 RAG（`rag/`）
+### 4. 检索增强生成 RAG（[`rag/`](./rag/README.md)）
 
 > 一套**可一键运行**的 RAG 算法库，覆盖向量检索与检索优化两大类。详见 [rag/README.md](./rag/README.md)。
 
@@ -147,7 +172,7 @@ python -m rag.rag_algorithms_demo
 | 检索优化 | [`hyde_algorithm.py`](./rag/retrieval_optimization/hyde_algorithm.py) | 假设性文档嵌入 `HyDERetriever` |
 | 检索优化 | [`retrieval_reranking.py`](./rag/retrieval_optimization/retrieval_reranking.py) | 重排序（BM25 / 上下文 / RRF）`RetrievalReranker` |
 
-### 5. 混合专家模型 MoE（`moe/`）
+### 5. 混合专家模型 MoE（[`moe/`](./moe/README.md)）
 
 > 用最小可读的代码理解 MoE：专家、路由、稀疏激活与负载均衡。
 
@@ -157,7 +182,7 @@ python -m rag.rag_algorithms_demo
 
 <div align="center"><img src="moe/images/moe_base.png" alt="MoE 基础结构" width="420"/></div>
 
-### 6. 强化学习对齐 RL（`rl/`）
+### 6. 强化学习对齐 RL（[`rl/`](./rl/README.md)）
 
 > RLHF / 大模型对齐中最常用的两种策略优化损失，**自包含、可独立运行**（仅依赖 `torch` + `numpy`）。
 
@@ -167,7 +192,7 @@ python -m rag.rag_algorithms_demo
 
 **要点**：PPO 用 GAE + Critic 估计优势；GRPO 去掉 Critic，用「同一 prompt 一组回答」的组内相对奖励作为优势，并显式加 per-token KL 惩罚（DeepSeekMath / DeepSeek-R1 路线）。
 
-### 7. Agent 核心算法（`agent/`）
+### 7. Agent 核心算法（[`agent/`](./agent/README.md)）
 
 > Agent 推理与规划的核心范式，**自包含、纯标准库可运行**：用「工具 hack（本地字典 + 安全算术）+ mock LLM（手写规则策略）」把控制流完整跑通，无需真实大模型或联网。
 
@@ -178,6 +203,8 @@ python -m rag.rag_algorithms_demo
 **要点**：CoT 显式写出中间步骤；ReAct 交替 `Thought → Action → Observation`；Reflexion 失败后写反思再重试；ToT 在思维树上生成分支 + 评估 + 搜索。接入真实 LLM 时只需把 mock 策略与工具替换为真实实现。
 
 ---
+
+<a id="roadmap"></a>
 
 ## 规划路线图（Roadmap）🗺️
 
@@ -225,6 +252,8 @@ python -m rag.rag_algorithms_demo
 - RL / 对齐：奖励模型训练、DPO（直接偏好优化）、偏好对比学习、对齐税度量
 
 </details>
+
+<a id="contributing"></a>
 
 ## 贡献指南 👏
 

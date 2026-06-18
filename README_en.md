@@ -54,24 +54,26 @@ ThinkLLM/
 
 > Naming convention: directories and files use **lowercase + underscore (snake_case)**, no spaces or special characters.
 
+> 📂 **Per-module docs**: [transformer](./transformer/README.md) · [tokenizer](./tokenizer/README.md) · [multimodal](./multimodal/README.md) · [rag](./rag/README.md) · [moe](./moe/README.md) · [rl](./rl/README.md) · [agent](./agent/README.md)
+
 ## Module Navigation 🧭
 
-The table below lists what is **already implemented** — click a file to read / run it directly. In `Status`, ✅ means implemented and 🚧 means planned (see the [Roadmap](#roadmap-) at the end).
+The table below lists what is **already implemented**. Click a **Module** to open its folder docs, or an **Entry file** to read / run it directly. In `Status`, ✅ means implemented and 🚧 means planned (see the [Roadmap](#roadmap-) at the end).
 
 | Module | Topic | Entry file | Form | Status |
 | --- | --- | --- | --- | --- |
-| transformer | Full Transformer components (NumPy) | [`transformer_basics.ipynb`](./transformer/transformer_basics.ipynb) | Notebook | ✅ |
-| transformer | MHA / GQA / MQA (concept + theory) | [`attention_mha_gqa_mqa.ipynb`](./transformer/attention_mha_gqa_mqa.ipynb) | Notebook | ✅ |
-| transformer | Modular MHA / GQA implementation | [`attention_mha_gqa_mqa_mla.ipynb`](./transformer/attention_mha_gqa_mqa_mla.ipynb) | Notebook | ✅ |
-| transformer | Linear Attention / FlashAttention | [`mla_flash_attention.ipynb`](./transformer/mla_flash_attention.ipynb) | Notebook | ✅ |
-| tokenizer | BPE tokenizer training & evaluation | [`bpe.ipynb`](./tokenizer/bpe.ipynb) | Notebook | ✅ |
-| multimodal | ViT (Vision Transformer) | [`vit.ipynb`](./multimodal/vit.ipynb) | Notebook | ✅ |
-| multimodal | Image feature extraction & mapping | [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | Notebook | ✅ |
-| multimodal | Cross-modal projection & fusion | [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | Notebook | ✅ |
-| rag | Vector retrieval + retrieval optimization | [`rag/`](./rag) · [docs](./rag/README.md) | Scripts + Notebook | ✅ |
-| moe | Basic MoE & Sparse MoE | [`moe.ipynb`](./moe/moe.ipynb) | Notebook | ✅ |
-| rl | PPO / GRPO loss from scratch | [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | Notebook | ✅ |
-| agent | ReAct / CoT / reflection / ToT (hand-written demo) | [`react_agent.ipynb`](./agent/react_agent.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | Full Transformer components (NumPy) | [`transformer_basics.ipynb`](./transformer/transformer_basics.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | MHA / GQA / MQA (concept + theory) | [`attention_mha_gqa_mqa.ipynb`](./transformer/attention_mha_gqa_mqa.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | Modular MHA / GQA implementation | [`attention_mha_gqa_mqa_mla.ipynb`](./transformer/attention_mha_gqa_mqa_mla.ipynb) | Notebook | ✅ |
+| [📂 transformer](./transformer/README.md) | Linear Attention / FlashAttention | [`mla_flash_attention.ipynb`](./transformer/mla_flash_attention.ipynb) | Notebook | ✅ |
+| [📂 tokenizer](./tokenizer/README.md) | BPE tokenizer training & evaluation | [`bpe.ipynb`](./tokenizer/bpe.ipynb) | Notebook | ✅ |
+| [📂 multimodal](./multimodal/README.md) | ViT (Vision Transformer) | [`vit.ipynb`](./multimodal/vit.ipynb) | Notebook | ✅ |
+| [📂 multimodal](./multimodal/README.md) | Image feature extraction & mapping | [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | Notebook | ✅ |
+| [📂 multimodal](./multimodal/README.md) | Cross-modal projection & fusion | [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | Notebook | ✅ |
+| [📂 rag](./rag/README.md) | Vector retrieval + retrieval optimization | [`rag/`](./rag) · [docs](./rag/README.md) | Scripts + Notebook | ✅ |
+| [📂 moe](./moe/README.md) | Basic MoE & Sparse MoE | [`moe.ipynb`](./moe/moe.ipynb) | Notebook | ✅ |
+| [📂 rl](./rl/README.md) | PPO / GRPO loss from scratch | [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | Notebook | ✅ |
+| [📂 agent](./agent/README.md) | ReAct / CoT / reflection / ToT (hand-written demo) | [`react_agent.ipynb`](./agent/react_agent.ipynb) | Notebook | ✅ |
 
 ## Setup & Quick Start 💡
 
@@ -95,7 +97,7 @@ jupyter notebook
 
 ## Implemented Modules in Detail 📦
 
-### 1. Core Transformer Components (`transformer/`)
+### 1. Core Transformer Components ([`transformer/`](./transformer/README.md))
 
 > Understand from scratch how a Transformer is actually "computed": attention, positional encoding, normalization, and the feed-forward network, piece by piece.
 
@@ -108,7 +110,7 @@ jupyter notebook
 
 **Suggested path**: read `transformer_basics` (intuitive NumPy version) first, then `attention_*` (memory optimization), and finally `mla_flash_attention` (inference acceleration).
 
-### 2. Tokenization (`tokenizer/`)
+### 2. Tokenization ([`tokenizer/`](./tokenizer/README.md))
 
 > Models see tokens, not text. This module explains how BPE "learns" to segment text.
 
@@ -116,7 +118,7 @@ jupyter notebook
 | --- | --- | --- |
 | [`bpe.ipynb`](./tokenizer/bpe.ipynb) | BPE training (count adjacent pairs → merge the most frequent → iterate) and encode/decode | `train_tokenizer` · `eval_tokenizer`, with corpus [`bpe.jsonl`](./tokenizer/bpe.jsonl) |
 
-### 3. Multimodal (`multimodal/`)
+### 3. Multimodal ([`multimodal/`](./multimodal/README.md))
 
 > Let the model "see" images: from patch encoding to aligning visual features into the language space.
 
@@ -126,7 +128,7 @@ jupyter notebook
 | [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | Image feature extraction and mapping | Feature extractor → mapping module → full pipeline → feature visualization → end-to-end example |
 | [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | Cross-modal projection & alignment | Projection layer → cross-modal fusion → contrastive learning → end-to-end training |
 
-### 4. Retrieval-Augmented Generation (`rag/`)
+### 4. Retrieval-Augmented Generation ([`rag/`](./rag/README.md))
 
 > A **one-command-runnable** RAG library covering vector retrieval and retrieval optimization. See [rag/README.md](./rag/README.md).
 
@@ -147,7 +149,7 @@ python -m rag.rag_algorithms_demo
 | Retrieval optimization | [`hyde_algorithm.py`](./rag/retrieval_optimization/hyde_algorithm.py) | Hypothetical Document Embedding `HyDERetriever` |
 | Retrieval optimization | [`retrieval_reranking.py`](./rag/retrieval_optimization/retrieval_reranking.py) | Reranking (BM25 / contextual / RRF) `RetrievalReranker` |
 
-### 5. Mixture of Experts (`moe/`)
+### 5. Mixture of Experts ([`moe/`](./moe/README.md))
 
 > Understand MoE with the smallest readable code: experts, routing, sparse activation and load balancing.
 
@@ -157,7 +159,7 @@ python -m rag.rag_algorithms_demo
 
 <div align="center"><img src="moe/images/moe_base.png" alt="MoE basic structure" width="420"/></div>
 
-### 6. RL Alignment (`rl/`)
+### 6. RL Alignment ([`rl/`](./rl/README.md))
 
 > The two most common policy-optimization losses for RLHF / LLM alignment — **self-contained and runnable** (only `torch` + `numpy`).
 
@@ -167,7 +169,7 @@ python -m rag.rag_algorithms_demo
 
 **Key idea**: PPO estimates the advantage with GAE + a Critic; GRPO drops the Critic and uses the group-relative reward of "a group of responses to the same prompt" as the advantage, with an explicit per-token KL penalty (the DeepSeekMath / DeepSeek-R1 route).
 
-### 7. Agent Core Algorithms (`agent/`)
+### 7. Agent Core Algorithms ([`agent/`](./agent/README.md))
 
 > Core reasoning-and-planning paradigms for agents — **self-contained, runs on the standard library only**: a "tool hack (local dict + safe arithmetic) + mock LLM (hand-written rule policy)" makes the control flow run end-to-end with no real LLM or network.
 
