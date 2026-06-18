@@ -1,16 +1,8 @@
-# 🚀ThinkLLM：大语言模型算法与组件实现
+# 🚀 ThinkLLM：大语言模型算法与组件实现
 
 <div align="center">
-    简体中文| <a href="./README_en.md" >English</a>
+    简体中文 | <a href="./README_en.md">English</a>
 </div>
-
-
-
-## 项目简介🌟
-
-ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本仓库包含了各种LLM、MLLM、RAG、Agent、LRM、RL和MoE的关键算法和组件的Python实现，帮助开发者和研究者通过具体代码深入理解大模型的底层机制。每个算法实现都保持简洁明确，便于学习和二次开发。
-
-如果对大模型全栈实践感兴趣，可以参考完全开源的[EmoLLM](https://github.com/SmartFlowAI/EmoLLM)。
 
 <div align="center">
   <img src="images/logo.png" alt="ThinkLLM Logo" width="200"/>
@@ -24,183 +16,229 @@ ThinkLLM是一个专注于大语言模型核心算法实现的开源项目。本
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/aJupyter/ThinkLLM/pulls)
 </div>
 
-## 更新🔥
+## 项目简介 🌟
 
-更多、更好的内容在路上！
+**ThinkLLM** 是一个专注于大语言模型核心算法实现的开源项目。我们用尽量少的依赖、尽量简洁的代码，从零复现 LLM / 多模态 / RAG / MoE / RL 等关键算法与组件，帮助开发者和研究者**通过可运行的代码**深入理解大模型的底层机制。
 
-- [2025.5] 可以使用[deepwiki](https://deepwiki.com/aJupyter/ThinkLLM)辅助理解该项目，更新[MLA](./transformer_component/MLA_FlashAttention.ipynb)、[multimodal](./multimodal)等内容
-- [2025.4] 更新[RAG](./RAG)、[BPE](./LLM/BPE.ipynb)
-- [2025.3] 更新[MHA/GQA/MQA](./transformer_component/MHA_GQA_MQA_MLA.ipynb)、[VIT](./multimodal/ViT.ipynb)
+设计原则：
 
-## 项目大纲📖
+- **可运行**：每个模块都是一个可以独立打开就跑的 Notebook 或脚本，而非伪代码。
+- **自包含**：每个 Notebook / 脚本**不依赖项目内其他文件**，单独打开即可从头执行。
+- **可读懂**：优先 NumPy / 朴素 PyTorch 实现，先讲清原理再做工程优化。
 
-### 1. Transformer核心算法
+> 如果你对大模型全栈实践感兴趣，可以参考完全开源的 [EmoLLM](https://github.com/SmartFlowAI/EmoLLM)。
+> 也可以使用 [DeepWiki](https://deepwiki.com/aJupyter/ThinkLLM) 辅助理解本项目。
 
-- **注意力机制算法**
-  - [经典自注意力机制（Self-Attention）实现](./transformer_component/Transformer_Basics.ipynb)
-  - [多头注意力（MHA）的前向与反向传播算法](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
-  - [分组查询注意力（GQA）的高效实现](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
-  - [多查询注意力（MQA）的省内存算法](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
-  - [混合线性注意力（MLA）计算与优化](./transformer_component/MHA_GQA_MQA_MLA.ipynb)
-  - [FlashAttention算法实现与性能分析](./transformer_component/MLA_FlashAttention.ipynb)
-- **位置编码算法**
-  - 正弦余弦位置编码（Sinusoidal）实现
-  - 可学习位置编码（Learnable PE）训练算法
-  - 相对位置编码（Relative PE）计算方法
-  - 旋转位置编码（RoPE）的数学原理与向量变换算法
-  - ALiBi位置偏置算法实现
-- **归一化层算法**
-  - LayerNorm的前向与反向传播实现
-  - RMSNorm算法与计算优化
-  - GroupNorm在Transformer中的应用
-  - 归一化位置（Pre/Post-LN）对训练稳定性的影响
-- **激活函数与前馈网络**
-  - GELU/SiLU激活函数实现
-  - SwiGLU门控变换算法
-  - GLU（门控线性单元）及其变体的实现
-  - MoE-FFN（专家混合前馈网络）的条件计算
-- **Tokenization**
-  - WordPiece
-  - [Byte-Pair Encoding (BPE)](./LLM/BPE.ipynb)
-  - Byte-level BPE(BBPE)
+## 更新 🔥
 
-### 2. 模型训练与优化算法
+- **[2025.6]** 新增 [RL 模块](./rl)：PPO / GRPO Loss 从零实现；统一并规范化目录结构
+- **[2025.5]** 支持 [DeepWiki](https://deepwiki.com/aJupyter/ThinkLLM) 辅助阅读；新增 [MLA / FlashAttention](./transformer/mla_flash_attention.ipynb)、[多模态](./multimodal) 系列
+- **[2025.4]** 新增 [RAG 算法库](./rag)、[BPE 分词](./tokenizer/bpe.ipynb)
+- **[2025.3]** 新增 [MHA / GQA / MQA](./transformer/attention_mha_gqa_mqa_mla.ipynb)、[ViT](./multimodal/vit.ipynb)
 
-- **预训练算法**
-  - 因果语言模型（CLM）预训练目标实现
-  - 掩码语言模型（MLM）训练算法
-  - 前缀语言模型（PrefixLM）实现
-  - 去噪自编码器（DAE）训练策略
-- **序列生成算法**
-  - 贪婪解码（Greedy Decoding）实现
-  - 束搜索（Beam Search）算法
-  - 核采样（Nucleus Sampling）和温度采样算法
-  - 典型相关性采样（Typical Sampling）实现
-  - MCTS（蒙特卡洛树搜索）在语言生成中的应用
-- **优化算法**
-  - AdamW优化器实现与权重衰减分离
-  - Lion优化器算法实现
-  - 学习率预热与余弦衰减策略
-  - 梯度累积与梯度裁剪实现
-  - 混合精度训练（AMP）算法
+## 目录结构 🗂️
 
-### 3. 高效推理与部署算法
+```
+ThinkLLM/
+├── transformer/     # Transformer 核心组件（注意力 / 位置编码 / 归一化 …）
+├── tokenizer/       # 分词算法（BPE …）
+├── multimodal/      # 多模态（ViT / 特征提取 / 跨模态投影）
+├── rag/             # 检索增强生成算法库（向量检索 / 检索优化）
+├── moe/             # 混合专家模型（MoE）
+├── rl/              # 强化学习对齐（PPO / GRPO …）
+├── images/          # 仓库公共图片资源
+├── README.md
+└── README_en.md
+```
 
-- **推理优化算法**
-  - KV缓存实现与管理策略
-  - 连续批处理（Continuous Batching）算法
-  - 推理阶段激活值量化方法
-  - 页面注意力（Paged Attention）内存管理算法
-  - Speculative Decoding推理加速技术
-- **量化算法**
-  - 权重量化算法（INT8/INT4/NF4）
-  - ZeroQuant量化算法实现
-  - GPTQ量化过程与优化
-  - AWQ（感知激活量化）算法
-  - QLoRA量化微调算法
+> 命名规范：目录与文件统一使用**小写 + 下划线（snake_case）**，不含空格与特殊字符。
 
-### 4. 长序列处理算法
+## 模块导航 🧭
 
-- **长上下文技术**
-  - 位置插值（Position Interpolation）算法
-  - Sliding Window Attention实现
-  - Longformer式稀疏注意力算法
-  - 递归状态空间模型（Mamba）核心算法
-  - 高效Recomputation策略算法
-- **记忆增强机制**
-  - 外部记忆检索算法
-  - GateLoop记忆增强循环机制
-  - RWKV线性注意力算法实现
-  - StreamingLLM无限上下文算法
+下表是目前**已经实现**的内容总览，点击文件即可直接阅读 / 运行。`状态` 中 ✅ 表示已实现，🚧 表示规划中（见文末 [Roadmap](#规划路线图-roadmap)）。
 
-### 5. 多模态算法
+| 模块 | 主题 | 入口文件 | 形式 | 状态 |
+| --- | --- | --- | --- | --- |
+| transformer | Transformer 全组件（NumPy 复现） | [`transformer_basics.ipynb`](./transformer/transformer_basics.ipynb) | Notebook | ✅ |
+| transformer | MHA / GQA / MQA（概念 + 原理） | [`attention_mha_gqa_mqa.ipynb`](./transformer/attention_mha_gqa_mqa.ipynb) | Notebook | ✅ |
+| transformer | MHA / GQA 模块化实现 | [`attention_mha_gqa_mqa_mla.ipynb`](./transformer/attention_mha_gqa_mqa_mla.ipynb) | Notebook | ✅ |
+| transformer | 线性注意力 / FlashAttention | [`mla_flash_attention.ipynb`](./transformer/mla_flash_attention.ipynb) | Notebook | ✅ |
+| tokenizer | BPE 分词器训练与评估 | [`bpe.ipynb`](./tokenizer/bpe.ipynb) | Notebook | ✅ |
+| multimodal | ViT（Vision Transformer） | [`vit.ipynb`](./multimodal/vit.ipynb) | Notebook | ✅ |
+| multimodal | 图像特征提取与映射 | [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | Notebook | ✅ |
+| multimodal | 跨模态投影层与融合 | [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | Notebook | ✅ |
+| rag | 向量检索 + 检索优化算法库 | [`rag/`](./rag) · [说明](./rag/README.md) | 脚本 + Notebook | ✅ |
+| moe | 基础 MoE 与 Sparse MoE | [`moe.ipynb`](./moe/moe.ipynb) | Notebook | ✅ |
+| rl | PPO / GRPO Loss 从零实现 | [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | Notebook | ✅ |
 
-- **视觉编码算法**
-  - [ViT（Vision Transformer）基础算法实现](./multimodal/ViT.ipynb)
-  - CLIP视觉编码器前向传播算法
-  - 图像特征提取与映射算法
-  - 视觉分割与特征融合技术
-- **跨模态融合算法**
-  - 投影层设计与实现
-  - 跨模态注意力计算方法
-  - 对齐空间构建算法
-  - 视觉-语言表征对齐方法
+## 环境与快速开始 💡
 
-### 6. 检索增强生成(RAG)算法
+```bash
+# 1. 克隆仓库
+git clone https://github.com/aJupyter/ThinkLLM.git
+cd ThinkLLM
 
-- **向量检索算法**
-  - [余弦相似度与点积相似度计算](./RAG/vector_retrival/cosine_dot_product_similarity.py)
-  - [近似最近邻（ANN）快速检索算法](./RAG/vector_retrival/approximate_nearest_neighbor.py)
-  - [HNSW索引构建与查询算法](./RAG/vector_retrival/hnsw_index.py)
-  - [混合检索排序算法实现](./RAG/retrival_optimization/hybrid_retrieval_sort.py)
-- **检索优化算法**
-  - [查询重写与扩展算法](./RAG/retrival_optimization/query_rewrite_expansion.py)
-  - [HyDE（假设性文档嵌入）算法](./RAG/retrival_optimization/hyde_algorithm.py)
-  - [上下文压缩与信息保留算法](./RAG/retrival_optimization/query_rewrite_expansion.py)
-  - [检索结果重排序与打分机制](./RAG/retrival_optimization/retrieval_reranking.py)
+# 2. 安装常用依赖（不同模块按需安装）
+pip install numpy torch matplotlib jupyter
+pip install jieba          # rag 中文分词
+pip install tokenizers     # tokenizer(BPE) 模块
 
-### 7. Agent与规划算法
+# 3. 打开任意 Notebook 学习
+jupyter notebook
+```
 
-- **推理与规划算法**
-  - ReAct框架核心算法实现
-  - 思维链（Chain-of-Thought）引导算法
-  - 自我反思与修正算法
-  - 思维树（Tree-of-Thought）搜索算法
-- **工具使用算法**
-  - 工具调用解析与参数提取算法
-  - 输出格式控制算法
-  - 工具结果整合与后续推理算法
-  - 循环工具调用与终止条件
+> 各模块相互独立，没有统一的 `requirements.txt`。每个 Notebook / 脚本均**自包含**，单独打开即可运行。
 
-### 8. 强化学习(RL)与人类反馈
+---
 
-- **基于策略优化的算法**
-  - PPO（近端策略优化）在LLM中的实现
-  - 奖励模型训练算法
-  - KL惩罚项计算与应用
-  - DPO（直接偏好优化）算法实现
-- **基于人类反馈的算法**
-  - RLHF数据处理与训练算法
-  - 偏好对比学习算法
-  - 人类偏好建模与排序学习
-  - 对齐税（Alignment Tax）测量与优化
+## 已实现模块详解 📦
 
-### 9. 混合专家模型(MoE)算法
+### 1. Transformer 核心组件（`transformer/`）
 
-- **路由算法**
-  - Top-K门控机制实现
-  - 基于Hash的专家分配算法
-  - 软路由与硬路由算法对比
-  - 负载均衡路由算法
-- **专家系统算法**
-  - 专家并行训练算法
-  - 专家选择与组合算法
-  - 条件计算与激活稀疏性
-  - 专家参数共享与更新策略
+> 从零理解一个 Transformer 是如何"算"出来的：注意力、位置编码、归一化、前馈网络逐个拆解。
 
-## 使用指南💡
+| 文件 | 你将学到 | 关键实现 |
+| --- | --- | --- |
+| [`transformer_basics.ipynb`](./transformer/transformer_basics.ipynb) | 纯 NumPy 复现完整 Transformer，理解每一步矩阵运算 | `softmax` · `positional_encoding` · `scaled_dot_product_attention` · `multi_head_attention` · `feed_forward_network` · `layer_norm` · `encoder_layer` · `decoder_layer` |
+| [`attention_mha_gqa_mqa.ipynb`](./transformer/attention_mha_gqa_mqa.ipynb) | MHA / MQA / GQA 的概念、原理与显存对比 | 三种注意力的对比与 PyTorch 实现 |
+| [`attention_mha_gqa_mqa_mla.ipynb`](./transformer/attention_mha_gqa_mqa_mla.ipynb) | 用 `nn.Module` 封装多头与分组查询注意力 | `MultiHeadAttention` · `GroupQueryAttention` |
+| [`mla_flash_attention.ipynb`](./transformer/mla_flash_attention.ipynb) | 线性注意力的计算简化、FlashAttention 的分块思想 | `Linear Attention` · `FlashAttention` |
 
-- 找到感兴趣的文件夹阅读学习即可，每个文件夹都具有相应的依赖。
+**动手建议**：先读 `transformer_basics`（NumPy 直观版），再看 `attention_*`（理解显存优化），最后看 `mla_flash_attention`（理解推理加速）。
 
-## 贡献指南👏
+### 2. Tokenization 分词（`tokenizer/`）
 
-- 我们欢迎任何的贡献，具体形式最好是一个可一键运行的入口文件或者notebook。
+> 模型看到的是 token，不是文字。本模块讲清楚 BPE 是怎么"学会"切词的。
 
-## 参考资源🪐
+| 文件 | 你将学到 | 关键实现 |
+| --- | --- | --- |
+| [`bpe.ipynb`](./tokenizer/bpe.ipynb) | BPE 的训练流程（统计相邻对 → 合并最高频对 → 迭代）与编解码流程 | `train_tokenizer` · `eval_tokenizer`，配套语料 [`bpe.jsonl`](./tokenizer/bpe.jsonl) |
 
-该部分待完善，旨在分享一些高价值学习资料。
+### 3. 多模态算法（`multimodal/`）
+
+> 让模型"看懂"图像：从图像切块编码，到把视觉特征对齐进语言空间。
+
+| 文件 | 你将学到 | 关键步骤 |
+| --- | --- | --- |
+| [`vit.ipynb`](./multimodal/vit.ipynb) | Vision Transformer 全流程 | Patch Embedding → 位置编码 → Transformer Encoder → 完整 ViT → 分块可视化 |
+| [`image_feature_extraction.ipynb`](./multimodal/image_feature_extraction.ipynb) | 图像特征的提取与映射 | 特征提取器 → 特征映射模块 → 完整流水线 → 特征可视化 → 端到端示例 |
+| [`projection_layer.ipynb`](./multimodal/projection_layer.ipynb) | 跨模态投影与对齐 | 投影层设计 → 跨模态融合层 → 对比学习 → 端到端训练 |
+
+### 4. 检索增强生成 RAG（`rag/`）
+
+> 一套**可一键运行**的 RAG 算法库，覆盖向量检索与检索优化两大类。详见 [rag/README.md](./rag/README.md)。
+
+**一键体验**（从仓库根目录运行）：
+
+```bash
+python -m rag.rag_algorithms_demo
+```
+
+| 子模块 | 文件 | 关键实现 |
+| --- | --- | --- |
+| 向量检索 | [`cosine_dot_product_similarity.py`](./rag/vector_retrieval/cosine_dot_product_similarity.py) | `cosine_similarity` · `dot_product_similarity` |
+| 向量检索 | [`approximate_nearest_neighbor.py`](./rag/vector_retrieval/approximate_nearest_neighbor.py) | LSH 近似最近邻 `LSHIndex` |
+| 向量检索 | [`hnsw_index.py`](./rag/vector_retrieval/hnsw_index.py) | HNSW 索引 `HNSWIndex` |
+| 向量检索 | [`context_compression.py`](./rag/vector_retrieval/context_compression.py) | 上下文压缩 `ContextCompressor` · `MapReduceCompressor` |
+| 检索优化 | [`hybrid_retrieval_sort.py`](./rag/retrieval_optimization/hybrid_retrieval_sort.py) | BM25 + 向量混合排序 `bm25_score` · `hybrid_retrieval_sort` |
+| 检索优化 | [`query_rewrite_expansion.py`](./rag/retrieval_optimization/query_rewrite_expansion.py) | 查询重写与扩展 `QueryRewriter` |
+| 检索优化 | [`hyde_algorithm.py`](./rag/retrieval_optimization/hyde_algorithm.py) | 假设性文档嵌入 `HyDERetriever` |
+| 检索优化 | [`retrieval_reranking.py`](./rag/retrieval_optimization/retrieval_reranking.py) | 重排序（BM25 / 上下文 / RRF）`RetrievalReranker` |
+
+### 5. 混合专家模型 MoE（`moe/`）
+
+> 用最小可读的代码理解 MoE：专家、路由、稀疏激活与负载均衡。
+
+| 文件 | 你将学到 | 关键实现 |
+| --- | --- | --- |
+| [`moe.ipynb`](./moe/moe.ipynb) | 从单个专家到可用于大模型训练的 Sparse MoE | `BasicExpert` · `BasicMOE` · `MOERouter`（Top-K 门控）· `MOEConfig` · `SparseMOE` |
+
+<div align="center"><img src="moe/images/moe_base.png" alt="MoE 基础结构" width="420"/></div>
+
+### 6. 强化学习对齐 RL（`rl/`）
+
+> RLHF / 大模型对齐中最常用的两种策略优化损失，**自包含、可独立运行**（仅依赖 `torch` + `numpy`）。
+
+| 文件 | 你将学到 | 关键实现 |
+| --- | --- | --- |
+| [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | PPO 与 GRPO 损失的数学原理与最小可运行实现，并附玩具模型训练步 | `compute_gae`（GAE 优势）· `ppo_loss`（裁剪目标 + 价值 + 熵）· `grpo_group_advantages`（组内标准化）· `grpo_loss`（无 Critic + k3 KL 惩罚） |
+
+**要点**：PPO 用 GAE + Critic 估计优势；GRPO 去掉 Critic，用「同一 prompt 一组回答」的组内相对奖励作为优势，并显式加 per-token KL 惩罚（DeepSeekMath / DeepSeek-R1 路线）。
+
+---
+
+## 规划路线图（Roadmap）🗺️
+
+以下为计划中、尚未实现的内容，欢迎认领贡献（🚧）。我们希望每个条目最终都对应**一个自包含、可运行的脚本或 Notebook**。
+
+<details>
+<summary><b>Transformer 进阶</b></summary>
+
+- 位置编码：Sinusoidal / Learnable PE / Relative PE / RoPE / ALiBi
+- 归一化：RMSNorm、GroupNorm、Pre-LN vs Post-LN 对训练稳定性的影响
+- 激活与 FFN：GELU / SiLU、SwiGLU、GLU 变体
+- 其他分词：WordPiece、Byte-level BPE (BBPE)
+
+</details>
+
+<details>
+<summary><b>训练与优化</b></summary>
+
+- 预训练目标：CLM / MLM / PrefixLM / DAE
+- 序列生成：Greedy / Beam Search / Nucleus / Typical Sampling / MCTS
+- 优化器与策略：AdamW、Lion、学习率预热与余弦衰减、梯度累积与裁剪、混合精度(AMP)
+
+</details>
+
+<details>
+<summary><b>高效推理与部署</b></summary>
+
+- 推理优化：KV Cache、Continuous Batching、Paged Attention、Speculative Decoding
+- 量化：INT8/INT4/NF4 权重量化、ZeroQuant、GPTQ、AWQ、QLoRA
+
+</details>
+
+<details>
+<summary><b>长序列处理</b></summary>
+
+- 长上下文：Position Interpolation、Sliding Window Attention、Longformer 稀疏注意力、Mamba
+- 记忆增强：外部记忆检索、GateLoop、RWKV、StreamingLLM
+
+</details>
+
+<details>
+<summary><b>Agent 与强化学习</b></summary>
+
+- Agent：ReAct、Chain-of-Thought、自我反思、Tree-of-Thought、工具调用解析
+- RL / 对齐：奖励模型训练、DPO（直接偏好优化）、偏好对比学习、对齐税度量
+
+</details>
+
+## 贡献指南 👏
+
+非常欢迎任何形式的贡献！建议的贡献形式是**一个自包含、可一键运行的入口文件或 Notebook**：
+
+1. Fork 本仓库并新建分支；
+2. 在对应模块目录下添加你的实现（Notebook 或脚本），保持"先原理、后代码、可运行"且**不依赖其他脚本**的风格；
+3. 文件 / 目录命名使用小写 + 下划线（snake_case）；
+4. 在 README 的[模块导航](#模块导航-)表中补充入口与状态，并提交 PR 说明实现思路与运行方式。
+
+## 参考资源 🪐
+
+该部分持续完善，旨在分享高价值学习资料：
+
 - 算法原理相关论文
 - 优秀实现参考
 - 推荐学习路径
 
-## 许可证😄
-本项目采用[Apache License](./LICENSE)。
+## 许可证 😄
 
-## Star History✨
+本项目采用 [Apache License 2.0](./LICENSE)。
+
+## Star History ✨
 
 [![Star History Chart](https://api.star-history.com/svg?repos=aJupyter/ThinkLLM&type=Date)](https://star-history.com/#aJupyter/ThinkLLM&Date)
 
-
 ## Contributors
 
-[![EmoLLM contributors](https://contrib.rocks/image?repo=aJupyter/ThinkLLM&max=50)](https://github.com/aJupyter/ThinkLLM/graphs/contributors)
+[![ThinkLLM contributors](https://contrib.rocks/image?repo=aJupyter/ThinkLLM&max=50)](https://github.com/aJupyter/ThinkLLM/graphs/contributors)

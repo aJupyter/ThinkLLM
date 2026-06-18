@@ -25,14 +25,14 @@ warnings.filterwarnings("ignore", category=UserWarning, module="matplotlib")
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 导入我们实现的各种算法
-from RAG.vector_retrival.cosine_dot_product_similarity import cosine_similarity, dot_product_similarity
-from RAG.vector_retrival.approximate_nearest_neighbor import LSHIndex
-from RAG.vector_retrival.hnsw_index import HNSWIndex
-from RAG.retrival_optimization.hybrid_retrieval_sort import hybrid_retrieval_sort
-from RAG.retrival_optimization.query_rewrite_expansion import QueryRewriter
-from RAG.retrival_optimization.hyde_algorithm import SimpleEmbedder, SimpleLLM, HyDERetriever
-from RAG.vector_retrival.context_compression import ContextCompressor
-from RAG.retrival_optimization.retrieval_reranking import RetrievalReranker
+from rag.vector_retrieval.cosine_dot_product_similarity import cosine_similarity, dot_product_similarity
+from rag.vector_retrieval.approximate_nearest_neighbor import LSHIndex
+from rag.vector_retrieval.hnsw_index import HNSWIndex
+from rag.retrieval_optimization.hybrid_retrieval_sort import hybrid_retrieval_sort
+from rag.retrieval_optimization.query_rewrite_expansion import QueryRewriter
+from rag.retrieval_optimization.hyde_algorithm import SimpleEmbedder, SimpleLLM, HyDERetriever
+from rag.vector_retrieval.context_compression import ContextCompressor
+from rag.retrieval_optimization.retrieval_reranking import RetrievalReranker
 
 def section_title(title):
     """打印章节标题"""

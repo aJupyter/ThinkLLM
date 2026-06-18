@@ -4,13 +4,13 @@
 
 ## 目录结构
 
-- `vector_retrival/`: 向量检索相关算法
+- `vector_retrieval/`: 向量检索相关算法
   - `cosine_dot_product_similarity.py`: 余弦相似度和点积相似度计算
   - `approximate_nearest_neighbor.py`: 近似最近邻（LSH）算法实现
   - `hnsw_index.py`: 层次化可导航小世界（HNSW）索引实现
   - `context_compression.py`: 上下文压缩和信息保留算法
 
-- `retrival_optimization/`: 检索优化相关算法
+- `retrieval_optimization/`: 检索优化相关算法
   - `hybrid_retrieval_sort.py`: 混合检索排序算法
   - `query_rewrite_expansion.py`: 查询重写与扩展算法
   - `hyde_algorithm.py`: 假设性文档嵌入（HyDE）算法
@@ -50,8 +50,8 @@ python rag_algorithms_demo.py
 #### 向量检索示例
 
 ```python
-from RAG.vector_retrival.cosine_dot_product_similarity import cosine_similarity
-from RAG.vector_retrival.approximate_nearest_neighbor import LSHIndex
+from rag.vector_retrieval.cosine_dot_product_similarity import cosine_similarity
+from rag.vector_retrieval.approximate_nearest_neighbor import LSHIndex
 
 # 计算向量相似度
 similarity = cosine_similarity(query_vector, document_vector)
@@ -65,8 +65,8 @@ results = lsh_index.query(query_vector, k=5)
 #### 检索优化示例
 
 ```python
-from RAG.retrival_optimization.query_rewrite_expansion import QueryRewriter
-from RAG.retrival_optimization.retrieval_reranking import RetrievalReranker
+from rag.retrieval_optimization.query_rewrite_expansion import QueryRewriter
+from rag.retrieval_optimization.retrieval_reranking import RetrievalReranker
 
 # 查询重写与扩展
 rewriter = QueryRewriter()
@@ -82,8 +82,8 @@ reranked_results = reranker.bm25_rerank(query, documents, doc_ids, top_k=10)
 
 ```python
 # 请参考rag_algorithms_demo.py中的complete_rag_pipeline函数
-from RAG.rag_algorithms_demo import complete_rag_pipeline
-from RAG.vector_retrival.context_compression import ContextCompressor
+from rag.rag_algorithms_demo import complete_rag_pipeline
+from rag.vector_retrieval.context_compression import ContextCompressor
 
 # 初始化组件
 embedder = SimpleEmbedder(embedding_dim=64)
