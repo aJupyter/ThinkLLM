@@ -18,7 +18,7 @@
 
 ## Project Overview 🌟
 
-**ThinkLLM** is an open-source project focused on the implementation of core algorithms for large language models. With minimal dependencies and concise code, we reimplement key algorithms and components across LLM / multimodal / RAG / MoE / RL from scratch, helping developers and researchers understand the underlying mechanisms of large models **through runnable code**.
+**ThinkLLM** is an open-source project focused on the implementation of core algorithms for large language models. With minimal dependencies and concise code, we reimplement key algorithms and components across LLM / multimodal / RAG / MoE / RL / Agent from scratch, helping developers and researchers understand the underlying mechanisms of large models **through runnable code**.
 
 Design principles:
 
@@ -31,7 +31,7 @@ Design principles:
 
 ## Updates 🔥
 
-- **[2025.6]** Added [RL module](./rl): PPO / GRPO loss from scratch; unified and standardized the directory structure
+- **[2025.6]** Added [Agent module](./agent): ReAct / CoT / reflection / ToT (hand-written demo + hacked tools); added [RL module](./rl): PPO / GRPO loss from scratch; unified and standardized the directory structure
 - **[2025.5]** Added [DeepWiki](https://deepwiki.com/aJupyter/ThinkLLM) support; added [MLA / FlashAttention](./transformer/mla_flash_attention.ipynb) and the [multimodal](./multimodal) series
 - **[2025.4]** Added the [RAG algorithm library](./rag) and [BPE tokenizer](./tokenizer/bpe.ipynb)
 - **[2025.3]** Added [MHA / GQA / MQA](./transformer/attention_mha_gqa_mqa_mla.ipynb) and [ViT](./multimodal/vit.ipynb)
@@ -46,6 +46,7 @@ ThinkLLM/
 ├── rag/             # Retrieval-Augmented Generation library (vector retrieval / optimization)
 ├── moe/             # Mixture of Experts (MoE)
 ├── rl/              # RL alignment (PPO / GRPO …)
+├── agent/           # Agent algorithms (ReAct / CoT / reflection / ToT)
 ├── images/          # Shared image assets
 ├── README.md
 └── README_en.md
@@ -70,6 +71,7 @@ The table below lists what is **already implemented** — click a file to read /
 | rag | Vector retrieval + retrieval optimization | [`rag/`](./rag) · [docs](./rag/README.md) | Scripts + Notebook | ✅ |
 | moe | Basic MoE & Sparse MoE | [`moe.ipynb`](./moe/moe.ipynb) | Notebook | ✅ |
 | rl | PPO / GRPO loss from scratch | [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | Notebook | ✅ |
+| agent | ReAct / CoT / reflection / ToT (hand-written demo) | [`react_agent.ipynb`](./agent/react_agent.ipynb) | Notebook | ✅ |
 
 ## Setup & Quick Start 💡
 
@@ -165,6 +167,16 @@ python -m rag.rag_algorithms_demo
 
 **Key idea**: PPO estimates the advantage with GAE + a Critic; GRPO drops the Critic and uses the group-relative reward of "a group of responses to the same prompt" as the advantage, with an explicit per-token KL penalty (the DeepSeekMath / DeepSeek-R1 route).
 
+### 7. Agent Core Algorithms (`agent/`)
+
+> Core reasoning-and-planning paradigms for agents — **self-contained, runs on the standard library only**: a "tool hack (local dict + safe arithmetic) + mock LLM (hand-written rule policy)" makes the control flow run end-to-end with no real LLM or network.
+
+| File | What you'll learn | Key implementations |
+| --- | --- | --- |
+| [`react_agent.ipynb`](./agent/react_agent.ipynb) | ReAct / CoT / self-reflection / Tree-of-Thought and tool-call parsing | `search` · `calculator` (hacked tools) · `parse_action` (bracket / JSON tool-call parsing) · `react_agent` (hand-written ReAct loop) · `reflexion_loop` (reflect & retry) · `tot_solve_24` (Tree-of-Thought search on the 24 game) |
+
+**Key idea**: CoT writes out intermediate steps; ReAct alternates `Thought → Action → Observation`; Reflexion reflects after a failure and retries; ToT generates branches on a thought tree, evaluates and searches. To use a real LLM, just replace the mock policy and tools with real implementations.
+
 ---
 
 ## Roadmap 🗺️
@@ -209,7 +221,7 @@ The following items are planned but not yet implemented — contributions welcom
 <details>
 <summary><b>Agent & RL</b></summary>
 
-- Agent: ReAct, Chain-of-Thought, self-reflection, Tree-of-Thought, tool-call parsing
+- Agent (advanced): multi-agent collaboration, long-term memory, ReWOO, Plan-and-Execute, real tool/function-calling integration
 - RL / alignment: reward model training, DPO, preference contrastive learning, alignment-tax measurement
 
 </details>

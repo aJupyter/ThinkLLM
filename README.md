@@ -18,7 +18,7 @@
 
 ## 项目简介 🌟
 
-**ThinkLLM** 是一个专注于大语言模型核心算法实现的开源项目。我们用尽量少的依赖、尽量简洁的代码，从零复现 LLM / 多模态 / RAG / MoE / RL 等关键算法与组件，帮助开发者和研究者**通过可运行的代码**深入理解大模型的底层机制。
+**ThinkLLM** 是一个专注于大语言模型核心算法实现的开源项目。我们用尽量少的依赖、尽量简洁的代码，从零复现 LLM / 多模态 / RAG / MoE / RL / Agent 等关键算法与组件，帮助开发者和研究者**通过可运行的代码**深入理解大模型的底层机制。
 
 设计原则：
 
@@ -31,7 +31,7 @@
 
 ## 更新 🔥
 
-- **[2025.6]** 新增 [RL 模块](./rl)：PPO / GRPO Loss 从零实现；统一并规范化目录结构
+- **[2025.6]** 新增 [Agent 模块](./agent)：ReAct / CoT / 反思 / ToT（手写 demo + 工具 hack）；新增 [RL 模块](./rl)：PPO / GRPO Loss 从零实现；统一并规范化目录结构
 - **[2025.5]** 支持 [DeepWiki](https://deepwiki.com/aJupyter/ThinkLLM) 辅助阅读；新增 [MLA / FlashAttention](./transformer/mla_flash_attention.ipynb)、[多模态](./multimodal) 系列
 - **[2025.4]** 新增 [RAG 算法库](./rag)、[BPE 分词](./tokenizer/bpe.ipynb)
 - **[2025.3]** 新增 [MHA / GQA / MQA](./transformer/attention_mha_gqa_mqa_mla.ipynb)、[ViT](./multimodal/vit.ipynb)
@@ -46,6 +46,7 @@ ThinkLLM/
 ├── rag/             # 检索增强生成算法库（向量检索 / 检索优化）
 ├── moe/             # 混合专家模型（MoE）
 ├── rl/              # 强化学习对齐（PPO / GRPO …）
+├── agent/           # Agent 算法（ReAct / CoT / 反思 / ToT）
 ├── images/          # 仓库公共图片资源
 ├── README.md
 └── README_en.md
@@ -70,6 +71,7 @@ ThinkLLM/
 | rag | 向量检索 + 检索优化算法库 | [`rag/`](./rag) · [说明](./rag/README.md) | 脚本 + Notebook | ✅ |
 | moe | 基础 MoE 与 Sparse MoE | [`moe.ipynb`](./moe/moe.ipynb) | Notebook | ✅ |
 | rl | PPO / GRPO Loss 从零实现 | [`ppo_grpo_loss.ipynb`](./rl/ppo_grpo_loss.ipynb) | Notebook | ✅ |
+| agent | ReAct / CoT / 反思 / ToT（含手写 demo） | [`react_agent.ipynb`](./agent/react_agent.ipynb) | Notebook | ✅ |
 
 ## 环境与快速开始 💡
 
@@ -165,6 +167,16 @@ python -m rag.rag_algorithms_demo
 
 **要点**：PPO 用 GAE + Critic 估计优势；GRPO 去掉 Critic，用「同一 prompt 一组回答」的组内相对奖励作为优势，并显式加 per-token KL 惩罚（DeepSeekMath / DeepSeek-R1 路线）。
 
+### 7. Agent 核心算法（`agent/`）
+
+> Agent 推理与规划的核心范式，**自包含、纯标准库可运行**：用「工具 hack（本地字典 + 安全算术）+ mock LLM（手写规则策略）」把控制流完整跑通，无需真实大模型或联网。
+
+| 文件 | 你将学到 | 关键实现 |
+| --- | --- | --- |
+| [`react_agent.ipynb`](./agent/react_agent.ipynb) | ReAct / CoT / 自我反思 / Tree-of-Thought 与工具调用解析 | `search` · `calculator`（工具 hack）· `parse_action`（方括号 / JSON 两种工具调用解析）· `react_agent`（手写 ReAct 循环）· `reflexion_loop`（反思重试）· `tot_solve_24`（思维树搜索 24 点） |
+
+**要点**：CoT 显式写出中间步骤；ReAct 交替 `Thought → Action → Observation`；Reflexion 失败后写反思再重试；ToT 在思维树上生成分支 + 评估 + 搜索。接入真实 LLM 时只需把 mock 策略与工具替换为真实实现。
+
 ---
 
 ## 规划路线图（Roadmap）🗺️
@@ -209,7 +221,7 @@ python -m rag.rag_algorithms_demo
 <details>
 <summary><b>Agent 与强化学习</b></summary>
 
-- Agent：ReAct、Chain-of-Thought、自我反思、Tree-of-Thought、工具调用解析
+- Agent 进阶：多智能体协作、长期记忆、ReWOO、Plan-and-Execute、真实工具/函数调用接入
 - RL / 对齐：奖励模型训练、DPO（直接偏好优化）、偏好对比学习、对齐税度量
 
 </details>
